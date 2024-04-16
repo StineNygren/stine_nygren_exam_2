@@ -1,5 +1,8 @@
 import { Button, Grid, TextField } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
+import { useLoginMutation } from "../../services/api.reducer";
+import { errorsSelector } from "../../services/redux.reducer";
+import { useAppSelector } from "../../services/store";
 
 type FormData = {
     email: string;
@@ -7,6 +10,8 @@ type FormData = {
   };
 
 function LoginForm() {
+
+    
     const {
         register,
         control,
@@ -14,10 +19,23 @@ function LoginForm() {
         formState: { errors },
     } = useForm<FormData>({defaultValues: {email: "", password: ""}});
 
-    const onSubmit = (data: FormData) => {
-        console.log(data)
+    const [login] = useLoginMutation();
+    const ApiErrors = useAppSelector(errorsSelector);
+
+    const onSubmit = async (data: FormData) => {
+        try {
+            await login(data);
+          } catch (error) {
+            console.error('Failed to log in:', error);
+          }
     }
     return ( 
+        <>
+        {ApiErrors.map((error, index) => (
+                <p key={index}>
+                    {error.message}
+                </p>
+            ))}
         <Grid container>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Controller control={control} name="email" rules={{required: "email is required",pattern: { value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i, message: "invalid email address"
@@ -31,6 +49,7 @@ function LoginForm() {
                 <Button type="submit" variant="contained" color="primary">Login</Button>
             </form>      
         </Grid>
+        </>
      );
 }
 

@@ -66,5 +66,7 @@ export const {
   useGetVenueQuery,
   useCreateVenueMutation,
   useSearchVenuesQuery,
+  useLoginMutation,
+  useRegisterMutation,
 
 } = holidazeApi;
