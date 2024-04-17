@@ -10,7 +10,7 @@ interface media {
     pets: boolean;
   }
 
-  interface location {
+  interface Location {
     address: string;
     city: string;
     zip: string;
@@ -19,14 +19,14 @@ interface media {
     lat: number;
     lng: number;
   }
-  interface owner {
+  interface Owner {
     name: string;
     email: string;
     bio: string;
     avatar: media;
     banner: media;
   }
-  interface count {
+  interface Count {
     bookings: number;
   }
 
@@ -41,10 +41,10 @@ export interface Venue {
     created: string;
     updated: string;
     meta: meta;
-    location: location;
-    owner: owner;
+    location: Location;
+    owner: Owner;
     bookings: Booking;
-    _count: count;
+    _count: Count;
 
 
 
@@ -66,4 +66,26 @@ export interface Venue {
     created: string;
     updated: string;
     customer: Customer;
+  }
+
+
+  // auth/login response
+
+  export interface Image {
+    url: string;
+    alt: string;
+  }
+  
+  export interface User {
+    name: string;
+    email: string;
+    bio: string;
+    avatar: Image;
+    banner: Image;
+    accessToken: string;
+  }
+  
+  export interface LoginResponse {
+    data: User;
+    meta?: Record<string, unknown>; 
   }

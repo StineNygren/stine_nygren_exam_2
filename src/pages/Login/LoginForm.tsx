@@ -3,17 +3,30 @@ import { Controller, useForm } from "react-hook-form";
 import { useLoginMutation } from "../../services/api.reducer";
 import { errorsSelector } from "../../services/redux.reducer";
 import { useAppSelector } from "../../services/store";
+import { LoginResponse } from "../../types/types";
+
 
 type FormData = {
     email: string;
     password: string;
   };
 
+  export function saveData(result: LoginResponse) {
+    if (result && result.data) {
+        console.log(result.data)
+        localStorage.setItem('token', result.data.accessToken);
+        localStorage.setItem('name', result.data.name);
+        localStorage.setItem('email', result.data.email);
+        window.location.href = "/home";
+      } else {
+        console.error('No data in result:', result);
+      }
+}
+
 function LoginForm() {
 
     
     const {
-        register,
         control,
         handleSubmit,
         formState: { errors },
@@ -22,9 +35,15 @@ function LoginForm() {
     const [login] = useLoginMutation();
     const ApiErrors = useAppSelector(errorsSelector);
 
+
+
     const onSubmit = async (data: FormData) => {
         try {
-            await login(data);
+            const result = await login(data).unwrap();
+            saveData(result as LoginResponse)
+
+
+            
           } catch (error) {
             console.error('Failed to log in:', error);
           }
