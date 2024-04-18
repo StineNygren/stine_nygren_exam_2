@@ -38,7 +38,11 @@ function Header() {
   };
 
   return (
-    <AppBar position="static">
+    
+    <AppBar position="static"     sx={{
+      height: '60px',
+  
+  }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           

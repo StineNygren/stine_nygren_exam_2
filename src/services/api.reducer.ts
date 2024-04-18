@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { Venue } from "../types/types";
+import { token } from "./localeStorage/localeStorage";
 
 ///  transformResponse: (response: { data: Venue }) => response.data, is roe when the data is an object and not an array "data"
 
@@ -9,7 +10,7 @@ export const holidazeApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "https://v2.api.noroff.dev",
     prepareHeaders: (headers) => {
-      const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiUGVyX1RvcmUiLCJlbWFpbCI6InBlcnRvcmVAc3R1ZC5ub3JvZmYubm8iLCJpYXQiOjE3MTI3NTQ2MjB9.zXq6BlDF_9L29j6e4IwLRxilna8JTx37dK8n9laxDPQ"
+      // const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiUGVyX1RvcmUiLCJlbWFpbCI6InBlcnRvcmVAc3R1ZC5ub3JvZmYubm8iLCJpYXQiOjE3MTI3NTQ2MjB9.zXq6BlDF_9L29j6e4IwLRxilna8JTx37dK8n9laxDPQ"
       headers.set('content-type', 'application/json');
       headers.set('X-Noroff-API-Key', '2903952c-f44b-449f-95e3-8694ba4c93ad');
 
@@ -43,6 +44,20 @@ endpoints: (builder) => ({
         body,
       }),
     }),
+    login: builder.mutation({
+      query: (body) => ({
+        url: '/auth/login',
+        method: 'POST',
+        body,
+      }),
+    }),
+    register: builder.mutation({
+      query: (body) => ({
+        url: '/auth/register',
+        method: 'POST',
+        body,
+      }),
+    }),
   }),
 
 });
@@ -52,5 +67,7 @@ export const {
   useGetVenueQuery,
   useCreateVenueMutation,
   useSearchVenuesQuery,
+  useLoginMutation,
+  useRegisterMutation,
 
 } = holidazeApi;

@@ -70,6 +70,6 @@ interface Err {
 
 export const errorsSelector = createSelector([errors], (errors) => {
     console.log("Errors selector runned");
-    return errors;
+    return [...errors];
 });
   
