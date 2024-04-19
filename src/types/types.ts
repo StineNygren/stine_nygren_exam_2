@@ -89,3 +89,23 @@ export interface Venue {
     data: User;
     meta?: Record<string, unknown>; 
   }
+
+  export interface ProfileCount {
+    venues: number;
+    bookings: number;
+  }
+  
+  export interface ExtendedUser extends User {
+    venueManager: boolean;
+    _count: ProfileCount;
+  }
+  
+  export interface ProfileResponse {
+    name: string;
+    email: string;
+    bio: string | null;
+    avatar: Image;
+    banner: Image;
+    data: ExtendedUser;
+    meta?: Record<string, unknown>; 
+  }

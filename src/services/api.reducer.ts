@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { Venue } from "../types/types";
 import { token } from "./localeStorage/localeStorage";
+import { ProfileResponse } from "../types/types";
 
 
 ///  transformResponse: (response: { data: Venue }) => response.data, is roe when the data is an object and not an array "data"
@@ -61,7 +62,7 @@ endpoints: (builder) => ({
     }),
     getProfile: builder.query({
       query: (user) => `/holidaze/profiles/${user}`,
-      transformResponse: (response: { data: Array<Venue> }) => response.data,
+      transformResponse: (response: { data: ProfileResponse }) => response.data,
     }),
 
   }),
