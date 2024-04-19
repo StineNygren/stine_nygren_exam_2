@@ -34,7 +34,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: "14" # Or the version you prefer
+          node-version: "21" # Or the version you prefer
 
       - name: Install Dependencies
         run: npm install # Or yarn install if you use yarn
@@ -44,6 +44,13 @@ jobs:
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          # Upload entire repository
+          path: "."
+          name: "github-pages"
 
       - name: Deploy to GitHub Pages
         id: deployment
