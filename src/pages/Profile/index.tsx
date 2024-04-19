@@ -1,7 +1,11 @@
+import ProfileDisplay from "./ProfileDisplay";
+import { token } from "../../services/localeStorage/localeStorage";
+
 function Profile() {
+    console.log(token)
     return ( 
         <div>
-            <h1>Profile</h1>
+            <ProfileDisplay />
         </div>
      );
 }

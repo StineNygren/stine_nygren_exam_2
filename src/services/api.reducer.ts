@@ -2,6 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { Venue } from "../types/types";
 import { token } from "./localeStorage/localeStorage";
 
+
 ///  transformResponse: (response: { data: Venue }) => response.data, is roe when the data is an object and not an array "data"
 
 
@@ -13,7 +14,7 @@ export const holidazeApi = createApi({
       // const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiUGVyX1RvcmUiLCJlbWFpbCI6InBlcnRvcmVAc3R1ZC5ub3JvZmYubm8iLCJpYXQiOjE3MTI3NTQ2MjB9.zXq6BlDF_9L29j6e4IwLRxilna8JTx37dK8n9laxDPQ"
       headers.set('content-type', 'application/json');
       headers.set('X-Noroff-API-Key', '2903952c-f44b-449f-95e3-8694ba4c93ad');
-
+      
       if (token) {
         headers.set('Authorization', `Bearer ${token}`);
       }
@@ -58,6 +59,11 @@ endpoints: (builder) => ({
         body,
       }),
     }),
+    getProfile: builder.query({
+      query: (user) => `/holidaze/profiles/${user}`,
+      transformResponse: (response: { data: Array<Venue> }) => response.data,
+    }),
+
   }),
 
 });
@@ -69,5 +75,7 @@ export const {
   useSearchVenuesQuery,
   useLoginMutation,
   useRegisterMutation,
+  useGetProfileQuery,
+  
 
 } = holidazeApi;

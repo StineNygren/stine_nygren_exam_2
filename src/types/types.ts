@@ -79,7 +79,7 @@ export interface Venue {
   export interface User {
     name: string;
     email: string;
-    bio: string;
+    bio: string | null;
     avatar: Image;
     banner: Image;
     accessToken: string;
