@@ -4,6 +4,7 @@ import { token } from "./localeStorage/localeStorage";
 import { ProfileResponse } from "../types/types";
 
 
+
 ///  transformResponse: (response: { data: Venue }) => response.data, is roe when the data is an object and not an array "data"
 
 
@@ -64,6 +65,13 @@ endpoints: (builder) => ({
       query: (user) => `/holidaze/profiles/${user}?_venues=true&_bookings=true`,
       transformResponse: (response: { data: ProfileResponse }) => response.data,
     }),
+    editProfile: builder.mutation({
+      query: ({ user, profile }) => ({
+        url: `/holidaze/profiles/${user}`,
+        method: 'PUT',
+        body: profile
+      }),
+    }),
     deleteVenue: builder.mutation({
       query: (id) => ({
         url: `/holidaze/venues/${id}`,
@@ -84,6 +92,7 @@ export const {
   useRegisterMutation,
   useGetProfileQuery,
   useDeleteVenueMutation,
+  useEditProfileMutation
   
 
 } = holidazeApi;

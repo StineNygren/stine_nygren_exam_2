@@ -1,7 +1,9 @@
-import { Avatar, Box, Card } from "@mui/material";
+import { Avatar, Box,  Card } from "@mui/material";
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { ProfileResponse } from "../../types/types";
+
+import BasicModal from "../../components/BasicModal";
 
 interface ProfileDisplayProps {
     data: ProfileResponse; 
@@ -34,6 +36,8 @@ function ProfileDisplay({ data }: ProfileDisplayProps) {
                 <h1>{data?.name}</h1>
                 <p>{data?.email}</p>
                 <p>{data?.bio}</p>
+
+                <BasicModal />
             </Box >
         </Card>
         </Box>
