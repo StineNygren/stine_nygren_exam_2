@@ -61,8 +61,14 @@ endpoints: (builder) => ({
       }),
     }),
     getProfile: builder.query({
-      query: (user) => `/holidaze/profiles/${user}`,
+      query: (user) => `/holidaze/profiles/${user}?_venues=true&_bookings=true`,
       transformResponse: (response: { data: ProfileResponse }) => response.data,
+    }),
+    deleteVenue: builder.mutation({
+      query: (id) => ({
+        url: `/holidaze/venues/${id}`,
+        method: 'DELETE',
+      }),
     }),
 
   }),
@@ -77,6 +83,7 @@ export const {
   useLoginMutation,
   useRegisterMutation,
   useGetProfileQuery,
+  useDeleteVenueMutation,
   
 
 } = holidazeApi;

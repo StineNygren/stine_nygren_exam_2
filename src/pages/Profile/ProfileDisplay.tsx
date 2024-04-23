@@ -1,12 +1,10 @@
 import { Avatar, Box, Card } from "@mui/material";
-import { useGetProfileQuery } from "../../services/api.reducer";
-import { user } from "../../services/localeStorage/localeStorage";
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { ProfileResponse } from "../../types/types";
 
 interface ProfileDisplayProps {
-    data: ProfileResponse; // specify that data is of type ProfileResponse
+    data: ProfileResponse; 
   }
 
 function ProfileDisplay({ data }: ProfileDisplayProps) {

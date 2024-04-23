@@ -99,6 +99,37 @@ export interface Venue {
     venueManager: boolean;
     _count: ProfileCount;
   }
+
+
+  
+  export interface Venue {
+    id?: string;
+    name: string;
+    description: string;
+    media: Image[];
+    price: number;
+    maxGuests: number;
+    rating: number;
+    created: string;
+    updated: string;
+    meta: {
+      wifi: boolean;
+      parking: boolean;
+      breakfast: boolean;
+      pets: boolean;
+    };
+    location: Location;
+  }
+  
+  export interface Booking {
+    id: string;
+    dateFrom: string;
+    dateTo: string;
+    guests: number;
+    created: string;
+    updated: string;
+    venue: Venue;
+  }
   
   export interface ProfileResponse {
     name: string;
@@ -107,5 +138,7 @@ export interface Venue {
     avatar: Image;
     banner: Image;
     data: ExtendedUser;
+    venues: Venue[];
+    bookings: Booking[];
     meta?: Record<string, unknown>; 
   }

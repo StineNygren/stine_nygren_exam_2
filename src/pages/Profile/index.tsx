@@ -3,6 +3,7 @@ import { token } from "../../services/localeStorage/localeStorage";
 import { Box } from "@mui/material";
 import { useGetProfileQuery } from "../../services/api.reducer";
 import { user } from "../../services/localeStorage/localeStorage";
+import VenueDisplay from "./VenueDisplay";
 
 
 
@@ -16,6 +17,7 @@ function Profile() {
     return ( 
         <Box>
             <ProfileDisplay data={data} />
+            <VenueDisplay data={data} />
         </Box>
      );
 }
