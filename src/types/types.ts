@@ -79,7 +79,7 @@ export interface Venue {
   export interface User {
     name: string;
     email: string;
-    bio: string;
+    bio: string | null;
     avatar: Image;
     banner: Image;
     accessToken: string;
@@ -87,5 +87,58 @@ export interface Venue {
   
   export interface LoginResponse {
     data: User;
+    meta?: Record<string, unknown>; 
+  }
+
+  export interface ProfileCount {
+    venues: number;
+    bookings: number;
+  }
+  
+  export interface ExtendedUser extends User {
+    venueManager: boolean;
+    _count: ProfileCount;
+  }
+
+
+  
+  export interface Venue {
+    id?: string;
+    name: string;
+    description: string;
+    media: Image[];
+    price: number;
+    maxGuests: number;
+    rating: number;
+    created: string;
+    updated: string;
+    meta: {
+      wifi: boolean;
+      parking: boolean;
+      breakfast: boolean;
+      pets: boolean;
+    };
+    location: Location;
+  }
+  
+  export interface Booking {
+    id: string;
+    dateFrom: string;
+    dateTo: string;
+    guests: number;
+    created: string;
+    updated: string;
+    venue: Venue;
+  }
+  
+  export interface ProfileResponse {
+    name: string;
+    email: string;
+    bio: string | null;
+    avatar: Image;
+    banner: Image;
+    data: ExtendedUser;
+    venues: Venue[];
+    bookings: Booking[];
     meta?: Record<string, unknown>; 
   }
