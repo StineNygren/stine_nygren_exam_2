@@ -1,6 +1,10 @@
 import { Controller, useForm } from "react-hook-form";
-import { Button, Grid, TextField } from "@mui/material";
+import { Button, Grid, TextField, Rating, Typography, Box } from "@mui/material";
 import { useCreateVenueMutation } from "../../services/api.reducer";
+import RssFeedIcon from '@mui/icons-material/RssFeed';
+import LocalParkingIcon from '@mui/icons-material/LocalParking';
+import RestaurantIcon from '@mui/icons-material/Restaurant';
+import PetsIcon from '@mui/icons-material/Pets';
 
 
 
@@ -14,6 +18,21 @@ type FormData = {
 }];
   price: number;
   maxGuests: number;
+  rating: number;
+  meta:{
+    wifi: boolean;
+    parking: boolean;
+    breakfast: boolean;
+    pets: boolean;
+
+  }
+  location: {
+    address: string;
+    city: string;
+    zip: string;
+    country: string;
+    continent: string;  
+  }
 
 };
 
@@ -23,6 +42,7 @@ const [createVenue] = useCreateVenueMutation();
     const onSubmit = async (data: FormData) => {
     data.price = Number(data.price);
     data.maxGuests = Number(data.maxGuests);
+    data.rating = Number(data.rating);
         try{
           const result = await createVenue(data).unwrap();
           console.log(result);
@@ -34,7 +54,7 @@ const [createVenue] = useCreateVenueMutation();
         control,
         handleSubmit,
         formState: { errors },
-    } = useForm<FormData>({defaultValues: {name: "", description: "", media: [{url: "", alt: ""}], price: 0, maxGuests: 0}});
+    } = useForm<FormData>({defaultValues: {name: "", description: "", media: [{url: "", alt: ""}], price: 0, maxGuests: 0, rating: 0, meta: {wifi: false, parking: false, breakfast: false, pets: false}, location: {address: "", city: "", zip: "", country: "", continent: ""}}});
     return ( 
         <>
         <form onSubmit={handleSubmit(onSubmit)} >
@@ -54,8 +74,98 @@ const [createVenue] = useCreateVenueMutation();
                 <Controller control={control} name="maxGuests" rules={{required: "Maxguests is required"}} render={({field:{onChange, value}}) =>
                 <TextField margin="normal" type="number" variant="outlined" label="Maxguests" onChange={onChange} value={value}  helperText={errors.maxGuests ? errors.maxGuests.message : null} />
                 }/>
+                        <Typography component="legend">Rating</Typography>
+        <Controller
+            name="rating"
+            control={control}
+            defaultValue={0}
+            render={({ field }) => (
+                <Rating
+                    name="simple-controlled"
+                    value={field.value}
+                    onChange={(newValue) => {
+                        field.onChange(newValue);
+                    }}
+                />
+            )} />
+            <Box display={"flex"} justifyContent={"space-between"}>
+            <Controller
+                    control={control}
+                    name="meta.wifi"
+                    render={({ field: { value, onChange } }) => (
+                      <Box display={"flex"} flexDirection={"column"}>
+                          <RssFeedIcon/>
+                          <input
+                              type="checkbox"
+                              checked={value || false}
+                              onChange={(e) => onChange(e.target.checked)}
+                          />
+                      </Box>
+                    )}
+                    />
+            <Controller
+                    control={control}
+                    name="meta.parking"
+                    render={({ field: { value, onChange } }) => (
+                      <Box display={"flex"} flexDirection={"column"}>
 
-                <Button  type="submit" variant="contained" color="primary">Register</Button>
+                          <LocalParkingIcon/>
+                          <input
+                              type="checkbox"
+                              checked={value || false}
+                              onChange={(e) => onChange(e.target.checked)}
+                          />
+           
+                      </Box>
+                    )}
+                    />
+            <Controller
+                    control={control}
+                    name="meta.breakfast"
+                    render={({ field: { value, onChange } }) => (
+                      <Box display={"flex"} flexDirection={"column"}>
+                          <RestaurantIcon/>
+                          <input
+                              type="checkbox"
+                              checked={value || false}
+                              onChange={(e) => onChange(e.target.checked)}
+                          />
+                      </Box>
+                    )}
+                    />
+            <Controller
+                    control={control}
+                    name="meta.pets"
+                    render={({ field: { value, onChange } }) => (
+                      <Box display={"flex"} flexDirection={"column"}>
+                          <PetsIcon/>
+                          <input
+                              type="checkbox"
+                              checked={value || false}
+                              onChange={(e) => onChange(e.target.checked)}
+                          />
+                      </Box>
+                    )}
+                    />
+            </Box>
+            <h2>Location</h2>
+            <Controller control={control} name="location.address" rules={{required: "adress is required"}} render={({field:{onChange, value}}) =>
+                <TextField margin="normal" type="text" variant="outlined" label="adress" onChange={onChange} value={value}  helperText={errors.location?.address ? errors.location?.address.message : null} />
+                }/>
+            <Controller control={control} name="location.city" rules={{required: "city is required"}} render={({field:{onChange, value}}) =>
+                <TextField margin="normal" type="text" variant="outlined" label="city" onChange={onChange} value={value}  helperText={errors.location?.city ? errors.location?.city.message : null} />
+                }/>
+            <Controller control={control} name="location.zip" rules={{required: "zip is required"}} render={({field:{onChange, value}}) =>
+                <TextField margin="normal" type="text" variant="outlined" label="zip" onChange={onChange} value={value}  helperText={errors.location?.zip ? errors.location?.zip.message : null} />
+                }/>
+            <Controller control={control} name="location.country" rules={{required: "country is required"}} render={({field:{onChange, value}}) =>
+                <TextField margin="normal" type="text" variant="outlined" label="country" onChange={onChange} value={value}  helperText={errors.location?.country ? errors.location?.country.message : null} />
+                }/>
+            <Controller control={control} name="location.continent" rules={{required: "continent is required"}} render={({field:{onChange, value}}) =>
+                <TextField margin="normal" type="text" variant="outlined" label="continent" onChange={onChange} value={value}  helperText={errors.location?.continent ? errors.location?.continent.message : null} />
+                }/>
+
+                <Button  type="submit" variant="contained" color="primary">Post Venue</Button>
                 </Grid>
         </form>
         </>

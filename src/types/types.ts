@@ -16,8 +16,8 @@ interface media {
     zip: string;
     country: string;
     continent: string;
-    lat: number;
-    lng: number;
+    lat?: number;
+    lng?: number;
   }
   interface Owner {
     name: string;
