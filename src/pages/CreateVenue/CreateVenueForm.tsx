@@ -1,10 +1,13 @@
 import { Controller, useForm } from "react-hook-form";
 import { Button, Grid, TextField, Rating, Typography, Box } from "@mui/material";
 import { useCreateVenueMutation } from "../../services/api.reducer";
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import RssFeedIcon from '@mui/icons-material/RssFeed';
 import LocalParkingIcon from '@mui/icons-material/LocalParking';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import PetsIcon from '@mui/icons-material/Pets';
+
 
 
 
@@ -38,6 +41,9 @@ type FormData = {
 
 
 function CreateVenueForm() {
+
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
 const [createVenue] = useCreateVenueMutation();
     const onSubmit = async (data: FormData) => {
     data.price = Number(data.price);
@@ -58,7 +64,9 @@ const [createVenue] = useCreateVenueMutation();
     return ( 
         <>
         <form onSubmit={handleSubmit(onSubmit)} >
+          <Box display={"flex"} flexDirection={isSmallScreen? "column" : "row"}>
         <Grid container direction={"column"} paddingX={5} width={450} >
+            <Typography variant="h4">Venue</Typography>
                 <Controller control={control} name="name" rules={{required: "name is required"}} render={({field:{onChange, value}}) =>
                 <TextField margin="normal" type="text" variant="outlined" label="Name" onChange={onChange} value={value}  helperText={errors.name ? errors.name.message : null} />
                 }/>
@@ -68,19 +76,22 @@ const [createVenue] = useCreateVenueMutation();
                 <Controller control={control}  name="media.0.url"   render={({ field }) => (
                 <TextField {...field} label="Image URL" variant="outlined" margin="normal" fullWidth />
                 )} />
-                <Controller control={control} name="price" rules={{required: "price is required"}} render={({field:{onChange, value}}) =>
+                <Controller control={control} name="price" rules={{required: "price is required",min: {value: 1, message: "Price must be at least 1"}}} render={({field:{onChange, value}}) =>
                 <TextField margin="normal" type="number" variant="outlined" label="Price" onChange={onChange} value={value}  helperText={errors.price ? errors.price.message : null} />
                 }/>
-                <Controller control={control} name="maxGuests" rules={{required: "Maxguests is required"}} render={({field:{onChange, value}}) =>
+                <Controller control={control} name="maxGuests" rules={{required: "Maxguests is required", min: {value: 1, message: "Maxguests must be at least 1"}}} render={({field:{onChange, value}}) =>
                 <TextField margin="normal" type="number" variant="outlined" label="Maxguests" onChange={onChange} value={value}  helperText={errors.maxGuests ? errors.maxGuests.message : null} />
                 }/>
                         <Typography component="legend">Rating</Typography>
         <Controller
+        
             name="rating"
             control={control}
             defaultValue={0}
+            
             render={({ field }) => (
                 <Rating
+                sx={{marginBottom: 2}}
                     name="simple-controlled"
                     value={field.value}
                     onChange={(newValue) => {
@@ -88,7 +99,7 @@ const [createVenue] = useCreateVenueMutation();
                     }}
                 />
             )} />
-            <Box display={"flex"} justifyContent={"space-between"}>
+            <Box marginBottom={5} display={"flex"} justifyContent={"space-between"}>
             <Controller
                     control={control}
                     name="meta.wifi"
@@ -148,7 +159,9 @@ const [createVenue] = useCreateVenueMutation();
                     )}
                     />
             </Box>
-            <h2>Location</h2>
+            </Grid>
+            <Grid container direction={"column"} paddingX={5} width={450}>
+            <Typography variant="h4">Location</Typography>
             <Controller control={control} name="location.address" rules={{required: "adress is required"}} render={({field:{onChange, value}}) =>
                 <TextField margin="normal" type="text" variant="outlined" label="adress" onChange={onChange} value={value}  helperText={errors.location?.address ? errors.location?.address.message : null} />
                 }/>
@@ -165,8 +178,9 @@ const [createVenue] = useCreateVenueMutation();
                 <TextField margin="normal" type="text" variant="outlined" label="continent" onChange={onChange} value={value}  helperText={errors.location?.continent ? errors.location?.continent.message : null} />
                 }/>
 
-                <Button  type="submit" variant="contained" color="primary">Post Venue</Button>
+                <Button sx={{marginTop: 2}}  type="submit" variant="contained" color="primary">Post Venue</Button>
                 </Grid>
+                </Box>
         </form>
         </>
      );
