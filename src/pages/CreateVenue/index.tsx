@@ -1,8 +1,11 @@
+import { Box } from "@mui/material";
+import CreateVenueForm from "./CreateVenueForm";
 function CreateVenue() {
     return ( 
-        <div>
+        <Box display={"flex"} flexDirection={"column"} alignItems={"center"}>
             <h1>Create Venue</h1>
-        </div>
+            <CreateVenueForm />
+        </Box >
      );
 }
 
