@@ -1,5 +1,5 @@
 export function isAuthenticaded() {
-    return localStorage.getItem("jwt") ? true : false;
+    return localStorage.getItem("token") ? true : false;
   }
 
   export const token = localStorage.getItem("token");

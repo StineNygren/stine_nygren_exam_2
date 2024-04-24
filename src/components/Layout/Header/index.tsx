@@ -13,12 +13,26 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { Link } from '@mui/material';
 import { NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { isAuthenticaded } from '../../../services/localeStorage/localeStorage';
 
 
 const pages = ['home', 'venues'];
-const settings = ['profile', 'create venue', 'login'];
+let settings = ['login'];
+console.log(isAuthenticaded());
+
+if (isAuthenticaded()) {
+  settings = ['profile', 'create venue', 'logout'];
+}else{
+  settings = ['login'];
+}
+
+
+
 
 function Header() {
+  
+  const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
@@ -158,9 +172,24 @@ function Header() {
             >
               {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                <Link component={NavLink} to={`/${setting.toLowerCase()}`}>
-                  <Typography sx={{color: "black", }} textAlign="center">{setting}</Typography>
-                </Link>
+                {setting === "logout" ? (
+                  <Typography
+                    sx={{ color: "black" }}
+                    textAlign="center"
+                    onClick={() => {
+                      localStorage.clear();
+                      navigate('/home');
+                    }}
+                  >
+                    {setting}
+                  </Typography>
+                ) : (
+                  <Link component={NavLink} to={`/${setting.toLowerCase()}`}>
+                    <Typography sx={{ color: "black" }} textAlign="center">
+                      {setting}
+                    </Typography>
+                  </Link>
+                )}
                 </MenuItem>
               ))}
             </Menu>
