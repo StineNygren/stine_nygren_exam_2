@@ -13,12 +13,29 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { Link } from '@mui/material';
 import { NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { isAuthenticaded } from '../../../services/localeStorage/localeStorage';
+import { avatar } from '../../../services/localeStorage/localeStorage';
 
 
 const pages = ['home', 'venues'];
-const settings = ['profile', 'create venue', 'login'];
+let settings = ['login'];
+console.log(isAuthenticaded());
+
+if (isAuthenticaded()) {
+  settings = ['profile', 'create venue', 'logout'];
+}else{
+  settings = ['login'];
+}
+
+
+
 
 function Header() {
+
+  
+  
+  const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
@@ -137,7 +154,7 @@ function Header() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt="Remy Sharp" src={avatar || 'defaultAvatar.png'} />
               </IconButton>
             </Tooltip>
             <Menu
@@ -158,9 +175,24 @@ function Header() {
             >
               {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                <Link component={NavLink} to={`/${setting.toLowerCase()}`}>
-                  <Typography sx={{color: "black", }} textAlign="center">{setting}</Typography>
-                </Link>
+                {setting === "logout" ? (
+                  <Typography
+                    sx={{ color: "black" }}
+                    textAlign="center"
+                    onClick={() => {
+                      localStorage.clear();
+                      navigate('/home');
+                    }}
+                  >
+                    {setting}
+                  </Typography>
+                ) : (
+                  <Link component={NavLink} to={`/${setting.toLowerCase()}`}>
+                    <Typography sx={{ color: "black" }} textAlign="center">
+                      {setting}
+                    </Typography>
+                  </Link>
+                )}
                 </MenuItem>
               ))}
             </Menu>
