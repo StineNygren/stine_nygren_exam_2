@@ -1,6 +1,5 @@
-import { Avatar, Box,  Card } from "@mui/material";
-import { useTheme } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
+import { Avatar, Box,  Card, Typography } from "@mui/material";
+import { useScreenTheme} from "../../theme/screenTheme";
 import { ProfileResponse } from "../../types/types";
 
 import BasicModal from "../../components/BasicModal";
@@ -11,31 +10,22 @@ interface ProfileDisplayProps {
 
 function ProfileDisplay({ data }: ProfileDisplayProps) {
 
-    const theme = useTheme();
-    const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
+    const { isSmallScreen } = useScreenTheme();
+
+
 
 
 
     return ( 
         <Box display={"flex"} flexDirection={"column"} alignItems={isSmallScreen ? "center" : "flex-start"}>
-        <Box
-        component="img"
-        src={data?.banner.url}
-        alt={data?.banner.alt}
-        sx={{
-            height: '300px',
-            objectFit: 'cover',
-            width: '100%',
-            maxWidth: "1800px",
-        }}
-        />
+
         <Card  sx={{ maxWidth: 345, backgroundColor: "white", marginTop: '-50px', padding: 5, marginX: 5 }}>
             <Box display={"flex"} flexDirection={"column"} alignItems={"center"}>
 
-                <Avatar src={data?.avatar.url} alt={data?.avatar.alt} sx={{ width: 56, height: 56 }}/>
+                <Avatar src={data?.avatar.url} alt={data?.avatar.alt} sx={{ width: 100, height: 100 }}/>
                 <h1>{data?.name}</h1>
-                <p>{data?.email}</p>
-                <p>{data?.bio}</p>
+                <Typography>{data?.email}</Typography>
+                <Typography>{data?.bio}</Typography>
 
                 <BasicModal />
             </Box >

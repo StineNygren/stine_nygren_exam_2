@@ -31,7 +31,7 @@ interface media {
   }
 
 export interface Venue {
-    id?: string;
+    id: string;
     name: string;
     description: string;
     media: media[];
@@ -43,7 +43,7 @@ export interface Venue {
     meta: meta;
     location: Location;
     owner: Owner;
-    bookings: Booking;
+    bookings: Booking[];
     _count: Count;
 
 
@@ -103,7 +103,7 @@ export interface Venue {
 
   
   export interface Venue {
-    id?: string;
+    id: string;
     name: string;
     description: string;
     media: Image[];
