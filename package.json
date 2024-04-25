@@ -2,7 +2,7 @@
   "name": "stine_nygren_exam_2",
   "private": true,
   "version": "0.2.0",
-  "homepage": "https://stinenygren.github.io/stine_nygren_exam_2/",
+
   "type": "module",
   "scripts": {
     "dev": "vite",
