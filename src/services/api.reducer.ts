@@ -37,7 +37,7 @@ endpoints: (builder) => ({
       transformResponse: (response: { data: Array<Venue> }) => response.data,
     }),
     getVenue: builder.query<Venue, string>({
-        query: (id) => `/holidaze/venues/${id}`,
+        query: (id) => `/holidaze/venues/${id}?_bookings=true`,
         transformResponse: (response: { data: Venue }) => response.data,
     }),
     createVenue: builder.mutation<Venue, Partial<Venue>>({
@@ -78,6 +78,7 @@ endpoints: (builder) => ({
         method: 'DELETE',
       }),
     }),
+
 
   }),
 
