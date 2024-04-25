@@ -15,6 +15,7 @@ import { Link } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { isAuthenticaded } from '../../../services/localeStorage/localeStorage';
+import { avatar } from '../../../services/localeStorage/localeStorage';
 
 
 const pages = ['home', 'venues'];
@@ -31,6 +32,8 @@ if (isAuthenticaded()) {
 
 
 function Header() {
+
+  
   
   const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
@@ -151,7 +154,7 @@ function Header() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt="Remy Sharp" src={avatar || 'defaultAvatar.png'} />
               </IconButton>
             </Tooltip>
             <Menu

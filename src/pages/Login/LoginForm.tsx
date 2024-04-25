@@ -17,6 +17,7 @@ type FormData = {
         localStorage.setItem('token', result.data.accessToken);
         localStorage.setItem('name', result.data.name);
         localStorage.setItem('email', result.data.email);
+        localStorage.setItem('avatar', result.data.avatar.url);
         window.location.href = "/home";
       } else {
         console.error('No data in result:', result);
@@ -63,6 +64,7 @@ function LoginForm() {
                 <TextField sx={{
                   // Root class for the input field
                   "& .MuiOutlinedInput-root": {
+                    color: "#FFF",
 
                     // Class for the border around the input field
                     "& .MuiOutlinedInput-notchedOutline": {
@@ -81,6 +83,7 @@ function LoginForm() {
                 <TextField sx={{
                   // Root class for the input field
                   "& .MuiOutlinedInput-root": {
+                    color: "#FFF",
 
                     // Class for the border around the input field
                     "& .MuiOutlinedInput-notchedOutline": {

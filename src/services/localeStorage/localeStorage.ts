@@ -5,4 +5,7 @@ export function isAuthenticaded() {
   export const token = localStorage.getItem("token");
 
   export const user = localStorage.getItem("name");
+  export const avatar = localStorage.getItem("avatar");
+
+  
   
