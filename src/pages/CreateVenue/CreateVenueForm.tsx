@@ -10,6 +10,7 @@ import PetsIcon from '@mui/icons-material/Pets';
 import { Venue } from "../../types/types";
 import { media } from "../../types/types";
 import { useEffect } from 'react';
+import ClearIcon from '@mui/icons-material/Clear';
 
 
 
@@ -129,18 +130,18 @@ function CreateVenueForm({ onSubmit, initialData = {}, isEditMode = false }: Cre
                 <TextField margin="normal" type="text" variant="outlined" label="Description" onChange={onChange} value={value}  helperText={errors.description ? errors.description.message : null} />
                 }/>
                 {fields.map((item, index) => (
-                  <div key={item.id}>                    
+                  <Box display={"flex"}  key={item.id}>                    
                     <Controller
                     control={control}
-                    name={`media.${index}.url` as any}
+                    name={`media.${index}.url`}
                     render={({ field }) => (
                       <TextField {...field} label={`Image URL ${index + 1}`} variant="outlined" margin="normal" fullWidth />
                     )}
                     />
-                    <button type="button" onClick={() => remove(index)}>Remove</button>
-                  </div>
+                    <Button color="secondary"   type="button" onClick={() => remove(index)}><ClearIcon/> </Button>
+                  </Box >
                 ))}
-                <button type="button" onClick={() => append({ url: "", alt: "" })}>Add Image</button>
+                <Button variant="outlined" color="primary" type="button" onClick={() => append({ url: "", alt: "" })}>Add Image</Button>
                 {/* <Controller control={control}  name="media.0.url"   render={({ field }) => (
                 <TextField {...field} label="Image URL" variant="outlined" margin="normal" fullWidth />
                 )} /> */}

@@ -39,7 +39,7 @@ interface VenueCardProps {
             <Typography marginX={3} variant="h4">{venue.name}</Typography>
             <Box marginX={3} display={"flex"} justifyContent={"space-between"}>
             <Typography><LocationOnIcon fontSize="small" /> {venue.location.city || "Unknown"}</Typography>
-            <Typography>{venue.maxGuests}$</Typography>
+            <Typography>{venue.price}$</Typography>
             </Box>
             <Box display={"flex"} justifyContent={"flex-end"}>
             <InfoModal venueId={venue.id}/>
