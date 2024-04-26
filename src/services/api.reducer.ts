@@ -47,6 +47,13 @@ endpoints: (builder) => ({
         body,
       }),
     }),
+    editVenue: builder.mutation({
+      query: ({body, id}) => ({
+        url: `/holidaze/venues/${id}`,
+        method: 'PUT',
+        body,
+      }),
+    }),
     login: builder.mutation({
       query: (body) => ({
         url: '/auth/login',
@@ -93,7 +100,8 @@ export const {
   useRegisterMutation,
   useGetProfileQuery,
   useDeleteVenueMutation,
-  useEditProfileMutation
+  useEditProfileMutation,
+  useEditVenueMutation,
   
 
 } = holidazeApi;

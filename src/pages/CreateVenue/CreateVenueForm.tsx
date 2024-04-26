@@ -1,69 +1,125 @@
-import { Controller, useForm } from "react-hook-form";
+import { useFieldArray, Controller, useForm } from "react-hook-form";
 import { Button, Grid, TextField, Rating, Typography, Box } from "@mui/material";
-import { useCreateVenueMutation } from "../../services/api.reducer";
+// import { useCreateVenueMutation } from "../../services/api.reducer";
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import RssFeedIcon from '@mui/icons-material/RssFeed';
 import LocalParkingIcon from '@mui/icons-material/LocalParking';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import PetsIcon from '@mui/icons-material/Pets';
+import { Venue } from "../../types/types";
+import { media } from "../../types/types";
+import { useEffect } from 'react';
+import ClearIcon from '@mui/icons-material/Clear';
 
 
 
 
 type FormData = {
-
-  name: string;
-  description: string;
-  media: [{
-    url: string;
-    alt: string;
-}];
-  price: number;
-  maxGuests: number;
-  rating: number;
-  meta:{
-    wifi: boolean;
-    parking: boolean;
-    breakfast: boolean;
-    pets: boolean;
-
-  }
-  location: {
-    address: string;
-    city: string;
-    zip: string;
-    country: string;
-    continent: string;  
-  }
-
+  name?: string;
+  description?: string;
+  media?: media[]; 
+  price?: number;
+  maxGuests?: number;
+  rating?: number;
+  meta?: { wifi: boolean; parking: boolean; breakfast: boolean; pets: boolean };
+  location?: { address: string; city: string; zip: string; country: string; continent: string };
 };
 
+interface CreateVenueFormProps {
+  onSubmit: (data: Partial<Venue>) => void;
+  initialData?: Partial<Venue>;
+  isEditMode?: boolean;
+}
 
-function CreateVenueForm() {
+function CreateVenueForm({ onSubmit, initialData = {}, isEditMode = false }: CreateVenueFormProps) {
 
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
-const [createVenue] = useCreateVenueMutation();
-    const onSubmit = async (data: FormData) => {
-    data.price = Number(data.price);
-    data.maxGuests = Number(data.maxGuests);
-    data.rating = Number(data.rating);
-        try{
-          const result = await createVenue(data).unwrap();
-          console.log(result);
-        } catch (error) {
-          console.error("Failed to create the venue: ", error);
-        }
-    };
+// const [createVenue] = useCreateVenueMutation();
+
+    // const onSubmit = async (data: FormData) => {
+    // data.price = Number(data.price);
+    // data.maxGuests = Number(data.maxGuests);
+    // data.rating = Number(data.rating);
+    //     try{
+    //       const result = await createVenue(data).unwrap();
+    //       console.log(result);
+    //     } catch (error) {
+    //       console.error("Failed to create the venue: ", error);
+    //     }
+
+    // };
     const {
         control,
+        setValue,
         handleSubmit,
         formState: { errors },
-    } = useForm<FormData>({defaultValues: {name: "", description: "", media: [{url: "", alt: ""}], price: 0, maxGuests: 0, rating: 0, meta: {wifi: false, parking: false, breakfast: false, pets: false}, location: {address: "", city: "", zip: "", country: "", continent: ""}}});
+      } = useForm<FormData>({
+        defaultValues: {
+          name: "",
+          description: "",
+          media: [{url: "", alt: ""}],
+          price: 0,
+          maxGuests: 0,
+          rating: 0,
+          meta: {
+            wifi: false,
+            parking: false,
+            breakfast: false,
+            pets: false
+          },
+          location: {
+            address: "",
+            city: "",
+            zip: "",
+            country: "",
+            continent: ""
+          }
+        }
+      });
+      // } = useForm<FormData>({ defaultValues: initialData });
+    // } = useForm<FormData>({defaultValues: {name: "", description: "", media: [{url: "", alt: ""}], price: 0, maxGuests: 0, rating: 0, meta: {wifi: false, parking: false, breakfast: false, pets: false}, location: {address: "", city: "", zip: "", country: "", continent: ""}}});
+   
+    useEffect(() => {
+      if (isEditMode && initialData !== null && initialData !== undefined) {
+        for (const field in initialData) {
+          const value = (initialData as FormData)[field as keyof FormData];
+          setValue(field as keyof FormData, value !== null && value !== undefined ? value : '');
+        }
+      } else {
+        // Set default values when initialData is null or undefined
+        setValue('name', '');
+        setValue('description', '');
+        setValue('media', [{url: '', alt: ''}]);
+        setValue('price', 0);
+        setValue('maxGuests', 0);
+        setValue('rating', 0);
+        setValue('meta', {wifi: false, parking: false, breakfast: false, pets: false});
+        setValue('location', {address: '', city: '', zip: '', country: '', continent: ''});
+      }
+    }, [initialData, isEditMode, setValue]);
+
+
+   
+    const { fields, append, remove } = useFieldArray({
+      control,
+      name: "media"
+    });
+
+    const onSubmitWithConversion = (data: FormData) => {
+      console.log(data)
+      data.price = Number(data.price);
+      data.maxGuests = Number(data.maxGuests);
+      data.rating = Number(data.rating);
+      onSubmit(data);
+    };
+   
+   
+   
     return ( 
         <>
-        <form onSubmit={handleSubmit(onSubmit)} >
+        <form onSubmit={handleSubmit(onSubmitWithConversion)} >
           <Box display={"flex"} flexDirection={isSmallScreen? "column" : "row"}>
         <Grid container direction={"column"} paddingX={5} width={450} >
             <Typography variant="h4">Venue</Typography>
@@ -73,9 +129,22 @@ const [createVenue] = useCreateVenueMutation();
                 <Controller control={control} name="description" rules={{required: "description is required"}} render={({field:{onChange, value}}) =>
                 <TextField margin="normal" type="text" variant="outlined" label="Description" onChange={onChange} value={value}  helperText={errors.description ? errors.description.message : null} />
                 }/>
-                <Controller control={control}  name="media.0.url"   render={({ field }) => (
+                {fields.map((item, index) => (
+                  <Box display={"flex"}  key={item.id}>                    
+                    <Controller
+                    control={control}
+                    name={`media.${index}.url`}
+                    render={({ field }) => (
+                      <TextField {...field} label={`Image URL ${index + 1}`} variant="outlined" margin="normal" fullWidth />
+                    )}
+                    />
+                    <Button color="secondary"   type="button" onClick={() => remove(index)}><ClearIcon/> </Button>
+                  </Box >
+                ))}
+                <Button variant="outlined" color="primary" type="button" onClick={() => append({ url: "", alt: "" })}>Add Image</Button>
+                {/* <Controller control={control}  name="media.0.url"   render={({ field }) => (
                 <TextField {...field} label="Image URL" variant="outlined" margin="normal" fullWidth />
-                )} />
+                )} /> */}
                 <Controller control={control} name="price" rules={{required: "price is required",min: {value: 1, message: "Price must be at least 1"}}} render={({field:{onChange, value}}) =>
                 <TextField margin="normal" type="number" variant="outlined" label="Price" onChange={onChange} value={value}  helperText={errors.price ? errors.price.message : null} />
                 }/>
@@ -178,7 +247,10 @@ const [createVenue] = useCreateVenueMutation();
                 <TextField margin="normal" type="text" variant="outlined" label="continent" onChange={onChange} value={value}  helperText={errors.location?.continent ? errors.location?.continent.message : null} />
                 }/>
 
-                <Button sx={{marginTop: 2}}  type="submit" variant="contained" color="primary">Post Venue</Button>
+                {/* <Button sx={{marginTop: 2}}  type="submit" variant="contained" color="primary">Post Venue</Button> */}
+                <Button sx={{marginTop: 2}} type="submit" variant="contained" color="primary">
+                {isEditMode ? 'Edit Venue' : 'Post Venue'}
+                </Button>
                 </Grid>
                 </Box>
         </form>

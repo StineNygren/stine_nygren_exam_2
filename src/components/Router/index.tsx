@@ -14,6 +14,7 @@ import CreateVenue from "../../pages/CreateVenue";
 
 
 
+
 const Router = createBrowserRouter([
 
 
@@ -48,6 +49,7 @@ const Router = createBrowserRouter([
             path: "create venue",
             element: <CreateVenue />
         },
+
         {
             path: "*",
             element: <h1>Not Found</h1>
