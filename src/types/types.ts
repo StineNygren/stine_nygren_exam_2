@@ -1,4 +1,4 @@
-interface media {
+export interface media {
     url: string;
     alt: string;
   }
