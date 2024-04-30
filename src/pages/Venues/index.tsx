@@ -1,13 +1,25 @@
 import { useGetVenuesQuery } from "../../services/api.reducer";
 import VenueCards from "../../components/VenueCards";
-import { Grid } from "@mui/material";
+import { Button, Grid } from "@mui/material";
+import { useState } from 'react';
 
 function Venues() {
-    const { data, error, isLoading } = useGetVenuesQuery();
+    const [page, setPage] = useState(1);
+    const { data, error, isLoading } = useGetVenuesQuery(page);
     if (isLoading) return <p>Loading...</p>;
     if (error) return <p>Error!</p>;
     if (!data) return <div>No data</div>;
-    console.log(data);
+
+
+    const handleNext = () => {
+        setPage(prevPage => prevPage + 1);
+        console.log(page);
+    }
+    const handlePrevius = () => { 
+        setPage(prevPage => prevPage - 1);
+        console.log(page);
+        console.log("previus")
+    }
 
 
     return ( 
@@ -22,6 +34,8 @@ function Venues() {
                 </Grid >
             ))}
         </Grid>
+        <Button variant="contained" onClick={handlePrevius} disabled={page === 1} color="primary">Previus</Button>
+        <Button  variant="contained" onClick={handleNext} disabled={data.length < 50}   color="primary">Next</Button>
 
     </div>
   
