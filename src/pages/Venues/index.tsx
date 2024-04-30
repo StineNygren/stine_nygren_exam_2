@@ -2,6 +2,7 @@ import { useGetVenuesQuery } from "../../services/api.reducer";
 import VenueCards from "../../components/VenueCards";
 import { Button, Grid } from "@mui/material";
 import { useState } from 'react';
+import Search from "./Search";
 
 function Venues() {
     const [page, setPage] = useState(1);
@@ -18,13 +19,14 @@ function Venues() {
     const handlePrevius = () => { 
         setPage(prevPage => prevPage - 1);
         console.log(page);
-        console.log("previus")
     }
 
 
     return ( 
     <div>      
         <h1>Venues</h1>
+        <Search />
+        <h2>All Listings</h2>
         <Grid container spacing={2} justifyContent="center" alignItems="center">
         {data.map((venue) => (
                 <Grid p={3} key={venue.id}>
