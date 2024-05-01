@@ -33,7 +33,7 @@ endpoints: (builder) => ({
       transformResponse: (response: { data: Array<Venue> }) => response.data,
     }),
     searchVenues: builder.query<Array<Venue>, string>({
-      query: (search) => `/holidaze/venues/search?q=${search}`,
+      query: (search) => `/holidaze/venues${search}`,
       transformResponse: (response: { data: Array<Venue> }) => response.data,
     }),
     getVenue: builder.query<Venue, string>({
