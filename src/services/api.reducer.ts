@@ -28,12 +28,12 @@ export const holidazeApi = createApi({
 
 
 endpoints: (builder) => ({
-    getVenues: builder.query<Array<Venue>, void>({
-      query: () => '/holidaze/venues',
+    getVenues: builder.query<Array<Venue>, number>({
+      query: (page) => `/holidaze/venues?limit=50&page=${page}`,
       transformResponse: (response: { data: Array<Venue> }) => response.data,
     }),
-    searchVenues: builder.query<Array<Venue>, string>({
-      query: (search) => `/holidaze/venues/search?q=${search}`,
+    searchVenues: builder.query<Array<Venue>, { search: string, page: number }>({
+      query: ({search, page}) => `/holidaze/venues${search}limit=50&page=${page}`,
       transformResponse: (response: { data: Array<Venue> }) => response.data,
     }),
     getVenue: builder.query<Venue, string>({
