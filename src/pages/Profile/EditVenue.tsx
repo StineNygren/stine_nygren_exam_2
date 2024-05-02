@@ -21,9 +21,10 @@ const style = {
 
 interface InfoModalProps {
   venueId: string;
+  refetch: () => void;
 }
 
-export default function EditVenue({ venueId }: InfoModalProps) {
+export default function EditVenue({ venueId, refetch }: InfoModalProps) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {  setOpen(true); };
   const handleClose = () => setOpen(false);
@@ -52,7 +53,15 @@ export default function EditVenue({ venueId }: InfoModalProps) {
         {isLoading ? (
           <p>Loading...</p> 
         ) : (
-          <CreateVenueForm onSubmit={(data) => editVenue({ id: venueId, body: data })} initialData={venue} isEditMode />
+    <CreateVenueForm onSubmit={async (data) => {
+        try {
+            await editVenue({ id: venueId, body: data });
+            refetch();
+        } catch (error) {
+            console.error(error);
+            // Handle the error appropriately
+        }
+    }} initialData={venue} isEditMode />
         )}
         </Box>        
                 

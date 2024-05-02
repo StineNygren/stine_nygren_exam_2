@@ -16,8 +16,12 @@ type FormData = {
     venueManager: boolean;
   };
 
+  interface EditProfileProps {
+    refetch: () => void;
+  }
 
-function EditProfile() {
+
+function EditProfile({refetch} : EditProfileProps){
     const {
         control,
         handleSubmit,
@@ -27,8 +31,9 @@ function EditProfile() {
     const [editProfile] = useEditProfileMutation();
     const onSubmit = async (data: FormData)=>{
         try {
-            editProfile({ user: user, profile: data  });
+            await editProfile({ user: user, profile: data  });
             console.log("Profile edited")
+            refetch();
         } catch (error) {
             console.error("Failed to edit the profile: ", error);
         }

@@ -11,9 +11,10 @@ import EditVenue from "./EditVenue";
 
 interface VenueCardProps {
     venue: Venue;
+    refetch: () => void;
   }
   
-  function VenueCard({ venue }: VenueCardProps) {
+  function VenueCard({ venue, refetch }: VenueCardProps) {
 
 
     const [deleteVenue] = useDeleteVenueMutation();
@@ -22,6 +23,8 @@ interface VenueCardProps {
           try {
             await deleteVenue(venue.id).unwrap();
             console.log("Venue deleted");
+            refetch();
+            
           } catch (error) {
             console.error("Failed to delete the venue: ", error);
           }
@@ -43,7 +46,7 @@ interface VenueCardProps {
             </Box>
             <Box display={"flex"} justifyContent={"flex-end"}>
             <InfoModal venueId={venue.id}/>
-            <EditVenue venueId={venue.id}/>
+            <EditVenue venueId={venue.id} refetch={refetch}/>
             <Button onClick={handleDelete} variant="text" color="secondary"><DeleteIcon/></Button>
             </Box>
       </Card>

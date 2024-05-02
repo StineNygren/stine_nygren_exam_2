@@ -16,8 +16,11 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
+interface BasicModalProps {
+  refetch: () => void;
+}
 
-export default function BasicModal() {
+export default function BasicModal({ refetch }: BasicModalProps) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -34,7 +37,7 @@ export default function BasicModal() {
         <Box sx={style}>
 
             
-                <EditProfile />
+                <EditProfile refetch={refetch}/>
         </Box>
       </Modal>
     </div>

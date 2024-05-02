@@ -10,7 +10,7 @@ import { useScreenTheme } from "../../theme/screenTheme";
 
 function Profile() {
     const { isSmallScreen } = useScreenTheme();
-    const { data, error, isLoading } = useGetProfileQuery(user);
+    const { data, error, isLoading, refetch } = useGetProfileQuery(user);
     if (isLoading) return <p>Loading...</p>;
     if (error) return <p>Error!</p>;
     if (!data) return <div>No data</div>;
@@ -29,8 +29,8 @@ function Profile() {
         }}
         />
         <Box display={"flex"} flexDirection={isSmallScreen ? "column" : "row"}>
-            <ProfileDisplay data={data} />
-            <VenueDisplay data={data} />
+            <ProfileDisplay data={data} refetch={refetch}/>
+            <VenueDisplay data={data} refetch={refetch} />
         </Box>
         </>
      );

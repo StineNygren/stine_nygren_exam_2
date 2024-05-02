@@ -6,8 +6,9 @@ import VenueCard from "./VenueCard";
 
 interface ProfileDisplayProps {
     data: ProfileResponse; 
+    refetch: () => void;
   }
-function VenueDisplay({ data }: ProfileDisplayProps) {
+function VenueDisplay({ data, refetch }: ProfileDisplayProps) {
 
 
     const venues = data.venues
@@ -17,7 +18,7 @@ function VenueDisplay({ data }: ProfileDisplayProps) {
 
            { venues.map((venue) => (
                 <Grid p={3} key={venue.id}>
-                    <VenueCard venue={venue} />
+                    <VenueCard venue={venue} refetch={refetch}/>
 
                     
                 </Grid >
