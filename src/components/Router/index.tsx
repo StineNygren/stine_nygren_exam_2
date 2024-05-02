@@ -1,4 +1,3 @@
-
 import { createBrowserRouter } from "react-router-dom";
 
 import Layout from "../Layout";
@@ -9,15 +8,7 @@ import Venue from "../../pages/Venue";
 import Profile from "../../pages/Profile";
 import CreateVenue from "../../pages/CreateVenue";
 
-
-
-
-
-
-
 const Router = createBrowserRouter([
-
-
     {
     path: "/",
     element: <Layout />,

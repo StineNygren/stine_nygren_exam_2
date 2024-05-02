@@ -14,30 +14,25 @@ type FormData = {
         alt: string;
     };
     venueManager: boolean;
-
   };
 
 
 function EditProfile() {
-
     const {
         control,
         handleSubmit,
 
     } = useForm<FormData>({defaultValues: {bio: "", avatar: { url: "", alt: "" }, banner: { url: "", alt: "" }, venueManager: false}});
-    
-
 
     const [editProfile] = useEditProfileMutation();
     const onSubmit = async (data: FormData)=>{
-                try {
+        try {
             editProfile({ user: user, profile: data  });
             console.log("Profile edited")
         } catch (error) {
             console.error("Failed to edit the profile: ", error);
         }
     }
-
 
     return ( 
         <form onSubmit={handleSubmit(onSubmit)}>

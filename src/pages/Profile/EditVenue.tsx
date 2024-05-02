@@ -29,40 +29,6 @@ export default function EditVenue({ venueId }: InfoModalProps) {
   const handleClose = () => setOpen(false);
 
   const { data: venue, isLoading} = useGetVenueQuery(venueId);
-  //console.log(venue)
-    
-    //   const isLoading = false;
-
-// const venue = {
-//     "name": "Soria Moria 3",
-//     "description": "Kollektiv hus i et gammelt hus fra 1933",
-//     "media": [
-//       {
-//         "url": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=1980&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-//         "alt": ""
-//       }
-//     ],
-//     "price": 2500,
-//     "maxGuests": 10,
-//     "rating": 2,
-//     "meta": {
-//       "wifi": true,
-//       "parking": false,
-//       "breakfast": true,
-//       "pets": false
-//     },
-//     "location": {
-//       "address": "Adresseveien 22",
-//       "city": "Oslo",
-//       "zip": "string",
-//       "country": "Norway",
-//       "continent": "string",
-//       "lat": 0,
-//       "lng": 0
-//     }
-//   }
-
-
 
 
   const [editVenue] = useEditVenueMutation();
@@ -84,7 +50,7 @@ export default function EditVenue({ venueId }: InfoModalProps) {
         <Box display={"flex"} flexDirection={"column"} alignItems={"center"}>
         <h1>Edit Venue</h1>
         {isLoading ? (
-          <p>Loading...</p> // Replace this with a loading spinner if you want
+          <p>Loading...</p> 
         ) : (
           <CreateVenueForm onSubmit={(data) => editVenue({ id: venueId, body: data })} initialData={venue} isEditMode />
         )}

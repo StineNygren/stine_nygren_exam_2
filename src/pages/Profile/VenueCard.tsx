@@ -32,8 +32,8 @@ interface VenueCardProps {
       <Card sx={{width: "253px"}}>
         <Box
              component="img"
-             src={venue.media[0].url}
-             alt={venue.media[0].alt}
+             src={venue.media && venue.media.length > 0 ? venue.media[0].url : "https://via.placeholder.com/253"}
+             alt={venue.media && venue.media.length > 0 ? venue.media[0].alt : "Placeholder image"}
              sx={{height: '200px',}}
         />
             <Typography marginX={3} variant="h4">{venue.name}</Typography>
