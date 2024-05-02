@@ -17,7 +17,7 @@ function Login() {
             backgroundImage: `url(${bgImage})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-            height: 'calc(100vh - 120px)',
+            height: 'calc(100vh - 241px)',
         }}
         >
         <Card variant="outlined"  sx={{ maxWidth: 500, maxHeight: 600, padding: 3, backgroundColor: "rgba(000,0,0,0.8)", color: "white"}} >
