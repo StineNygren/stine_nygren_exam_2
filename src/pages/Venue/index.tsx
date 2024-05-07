@@ -18,7 +18,7 @@ function Venue() {
     if (error) return <p>Error!</p>;
     if (!data) return <div>No data</div>;
 
-console.log(data)
+
 
 
 
@@ -29,9 +29,9 @@ console.log(data)
         <Box   >
             <Carousel media={data.media} />
         </Box >
-        <Box display={'flex'} flexDirection={isSmallScreen ? "column" : "row"} m={5}>
+        <Box display={'flex'} flexDirection={isSmallScreen ? "column" : "row"} m={5} gap={5}>
         <VenueTextDisplay data={data} />
-        <CreateBooking  bookings={data.bookings} />
+        <CreateBooking id={data.id} bookings={data.bookings} />
         </Box>
 
         </Grid>

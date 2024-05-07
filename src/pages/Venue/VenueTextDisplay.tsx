@@ -1,4 +1,4 @@
-import { Typography, Rating } from "@mui/material";
+import { Typography, Rating, Box } from "@mui/material";
 import { Venue } from "../../types/types";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import RssFeedIcon from '@mui/icons-material/RssFeed';
@@ -14,7 +14,7 @@ function VenueTextDisplay( { data }: VenueTextDisplayProps) {
 
 
     return ( 
-        <div>
+        <Box maxWidth={"500px"}>
             <h1>{data.name}</h1>
             <Typography><LocationOnIcon /> {data.location.address}</Typography>
             <Rating name="read-only" value={data.rating} readOnly />
@@ -24,7 +24,7 @@ function VenueTextDisplay( { data }: VenueTextDisplayProps) {
             {data.meta.breakfast && <Typography><RestaurantIcon /> Breakfast</Typography>}
             {data.meta.pets && <Typography><PetsIcon /> Pet Friendly</Typography>}
             <Typography>Price: {data.price}$</Typography>
-        </div>
+        </Box>
      );
 }
 
