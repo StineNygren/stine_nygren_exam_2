@@ -6,9 +6,10 @@ import BasicModal from "../../components/BasicModal";
 
 interface ProfileDisplayProps {
     data: ProfileResponse; 
+    refetch: () => void;
   }
 
-function ProfileDisplay({ data }: ProfileDisplayProps) {
+function ProfileDisplay({ data, refetch }: ProfileDisplayProps) {
 
     const { isSmallScreen } = useScreenTheme();
 
@@ -27,7 +28,7 @@ function ProfileDisplay({ data }: ProfileDisplayProps) {
                 <Typography>{data?.email}</Typography>
                 <Typography>{data?.bio}</Typography>
 
-                <BasicModal />
+                <BasicModal refetch={refetch}/>
             </Box >
         </Card>
         </Box>

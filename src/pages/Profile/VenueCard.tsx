@@ -11,9 +11,10 @@ import EditVenue from "./EditVenue";
 
 interface VenueCardProps {
     venue: Venue;
+    refetch: () => void;
   }
   
-  function VenueCard({ venue }: VenueCardProps) {
+  function VenueCard({ venue, refetch }: VenueCardProps) {
 
 
     const [deleteVenue] = useDeleteVenueMutation();
@@ -22,6 +23,8 @@ interface VenueCardProps {
           try {
             await deleteVenue(venue.id).unwrap();
             console.log("Venue deleted");
+            refetch();
+            
           } catch (error) {
             console.error("Failed to delete the venue: ", error);
           }
@@ -32,8 +35,8 @@ interface VenueCardProps {
       <Card sx={{width: "253px"}}>
         <Box
              component="img"
-             src={venue.media[0].url}
-             alt={venue.media[0].alt}
+             src={venue.media && venue.media.length > 0 ? venue.media[0].url : "https://via.placeholder.com/253"}
+             alt={venue.media && venue.media.length > 0 ? venue.media[0].alt : "Placeholder image"}
              sx={{height: '200px',}}
         />
             <Typography marginX={3} variant="h4">{venue.name}</Typography>
@@ -43,7 +46,7 @@ interface VenueCardProps {
             </Box>
             <Box display={"flex"} justifyContent={"flex-end"}>
             <InfoModal venueId={venue.id}/>
-            <EditVenue venueId={venue.id}/>
+            <EditVenue venueId={venue.id} refetch={refetch}/>
             <Button onClick={handleDelete} variant="text" color="secondary"><DeleteIcon/></Button>
             </Box>
       </Card>

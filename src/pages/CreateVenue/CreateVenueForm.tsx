@@ -1,6 +1,5 @@
 import { useFieldArray, Controller, useForm } from "react-hook-form";
 import { Button, Grid, TextField, Rating, Typography, Box } from "@mui/material";
-// import { useCreateVenueMutation } from "../../services/api.reducer";
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import RssFeedIcon from '@mui/icons-material/RssFeed';
@@ -36,50 +35,30 @@ function CreateVenueForm({ onSubmit, initialData = {}, isEditMode = false }: Cre
 
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
-// const [createVenue] = useCreateVenueMutation();
 
-    // const onSubmit = async (data: FormData) => {
-    // data.price = Number(data.price);
-    // data.maxGuests = Number(data.maxGuests);
-    // data.rating = Number(data.rating);
-    //     try{
-    //       const result = await createVenue(data).unwrap();
-    //       console.log(result);
-    //     } catch (error) {
-    //       console.error("Failed to create the venue: ", error);
-    //     }
-
-    // };
+    const defaultFormData: FormData = {
+      name: "",
+      description: "",
+      media: [{ url: "", alt: "" }],
+      price: 0,
+      maxGuests: 0,
+      rating: 0,
+      meta: { wifi: false, parking: false, breakfast: false, pets: false },
+      location: { address: "", city: "", zip: "", country: "", continent: "" },
+    };
+    
     const {
-        control,
-        setValue,
-        handleSubmit,
-        formState: { errors },
-      } = useForm<FormData>({
-        defaultValues: {
-          name: "",
-          description: "",
-          media: [{url: "", alt: ""}],
-          price: 0,
-          maxGuests: 0,
-          rating: 0,
-          meta: {
-            wifi: false,
-            parking: false,
-            breakfast: false,
-            pets: false
-          },
-          location: {
-            address: "",
-            city: "",
-            zip: "",
-            country: "",
-            continent: ""
-          }
-        }
-      });
-      // } = useForm<FormData>({ defaultValues: initialData });
-    // } = useForm<FormData>({defaultValues: {name: "", description: "", media: [{url: "", alt: ""}], price: 0, maxGuests: 0, rating: 0, meta: {wifi: false, parking: false, breakfast: false, pets: false}, location: {address: "", city: "", zip: "", country: "", continent: ""}}});
+      control,
+      setValue,
+      handleSubmit,
+      formState: { errors },
+    } = useForm<FormData>({
+      defaultValues: {
+        ...defaultFormData,
+        ...initialData,
+      },
+    });
+
    
     useEffect(() => {
       if (isEditMode && initialData !== null && initialData !== undefined) {
@@ -87,17 +66,7 @@ function CreateVenueForm({ onSubmit, initialData = {}, isEditMode = false }: Cre
           const value = (initialData as FormData)[field as keyof FormData];
           setValue(field as keyof FormData, value !== null && value !== undefined ? value : '');
         }
-      } else {
-        // Set default values when initialData is null or undefined
-        setValue('name', '');
-        setValue('description', '');
-        setValue('media', [{url: '', alt: ''}]);
-        setValue('price', 0);
-        setValue('maxGuests', 0);
-        setValue('rating', 0);
-        setValue('meta', {wifi: false, parking: false, breakfast: false, pets: false});
-        setValue('location', {address: '', city: '', zip: '', country: '', continent: ''});
-      }
+      } 
     }, [initialData, isEditMode, setValue]);
 
 
@@ -106,6 +75,7 @@ function CreateVenueForm({ onSubmit, initialData = {}, isEditMode = false }: Cre
       control,
       name: "media"
     });
+    console.log(fields)
 
     const onSubmitWithConversion = (data: FormData) => {
       console.log(data)
@@ -142,9 +112,7 @@ function CreateVenueForm({ onSubmit, initialData = {}, isEditMode = false }: Cre
                   </Box >
                 ))}
                 <Button variant="outlined" color="primary" type="button" onClick={() => append({ url: "", alt: "" })}>Add Image</Button>
-                {/* <Controller control={control}  name="media.0.url"   render={({ field }) => (
-                <TextField {...field} label="Image URL" variant="outlined" margin="normal" fullWidth />
-                )} /> */}
+
                 <Controller control={control} name="price" rules={{required: "price is required",min: {value: 1, message: "Price must be at least 1"}}} render={({field:{onChange, value}}) =>
                 <TextField margin="normal" type="number" variant="outlined" label="Price" onChange={onChange} value={value}  helperText={errors.price ? errors.price.message : null} />
                 }/>
@@ -247,7 +215,6 @@ function CreateVenueForm({ onSubmit, initialData = {}, isEditMode = false }: Cre
                 <TextField margin="normal" type="text" variant="outlined" label="continent" onChange={onChange} value={value}  helperText={errors.location?.continent ? errors.location?.continent.message : null} />
                 }/>
 
-                {/* <Button sx={{marginTop: 2}}  type="submit" variant="contained" color="primary">Post Venue</Button> */}
                 <Button sx={{marginTop: 2}} type="submit" variant="contained" color="primary">
                 {isEditMode ? 'Edit Venue' : 'Post Venue'}
                 </Button>

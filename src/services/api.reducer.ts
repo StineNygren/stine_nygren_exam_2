@@ -47,6 +47,13 @@ endpoints: (builder) => ({
         body,
       }),
     }),
+    createBooking: builder.mutation({
+      query: (body) => ({
+        url: '/holidaze/bookings',
+        method: 'POST',
+        body,
+      }),
+    }),
     editVenue: builder.mutation({
       query: ({body, id}) => ({
         url: `/holidaze/venues/${id}`,
@@ -102,6 +109,7 @@ export const {
   useDeleteVenueMutation,
   useEditProfileMutation,
   useEditVenueMutation,
+  useCreateBookingMutation,
   
 
 } = holidazeApi;
