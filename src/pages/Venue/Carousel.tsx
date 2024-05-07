@@ -23,8 +23,7 @@ interface MediaItem {
       }
     }
   
-    console.log(media.length)
-    console.log(index)
+
     return (
       <Box>
         <Box
@@ -32,10 +31,10 @@ interface MediaItem {
           src={media && media[index] ? media[index].url : "https://via.placeholder.com/1800"}
           alt={media && media[index] ? media[index].alt : "Placeholder image"}
           sx={{
-            height: '300px',
+            height: '400px',
             objectFit: 'cover',
             width: '100%',
-            maxWidth: "1800px",
+
           }}
         />
         {media.length > 1 && (
