@@ -5,6 +5,10 @@ import { isWithinInterval, parseISO, isBefore, endOfDay, isValid, isAfter } from
 import { Box, Button, TextField } from '@mui/material';
 import { useCreateBookingMutation } from '../../services/api.reducer';
 import { useState } from 'react';
+import { errorsSelector } from "../../services/redux.reducer";
+import { useAppSelector } from "../../services/store";
+
+
 
 
 
@@ -18,6 +22,7 @@ interface CreateBookingProps {
 function CreateBooking( { bookings, id }: CreateBookingProps) {
 
     const [createBooking] = useCreateBookingMutation();
+    const ApiErrors = useAppSelector(errorsSelector);
 
     const bookedDates = bookings.map(booking => ({
         dateFrom: parseISO(booking.dateFrom),
@@ -44,8 +49,18 @@ function CreateBooking( { bookings, id }: CreateBookingProps) {
 
     const [dateRange, setDateRange] = useState<[Date, Date]>([new Date(), new Date()]);
     const [guests, setGuests] = useState(1);
-    
-    const onSubmit = () => {
+    const [message, setMessage] = useState<string | null>(null);
+    const [isError, setIsError] = useState(false);
+
+    const onSubmit = async () => {
+        setMessage(null);
+        
+        console.log('Creating booking:', dateRange, guests)
+        if (dateRange === null || dateRange[0] === null || dateRange[1] === null) {
+            setMessage('Please select a date range');
+            setIsError(true);
+            return;
+        }
         try {
             const bookingData = {
                 venueId: id,
@@ -53,9 +68,11 @@ function CreateBooking( { bookings, id }: CreateBookingProps) {
                 dateTo: dateRange[1],
                 guests: guests
             };
-            const result = createBooking(bookingData).unwrap();
+            const result = await createBooking(bookingData).unwrap();
             console.log('Booking created:', result);
-
+            setMessage('Booking created successfully');
+            setIsError(false);
+    
         } catch (error) {
             console.error('Failed to create booking:', error);
 
@@ -65,12 +82,20 @@ function CreateBooking( { bookings, id }: CreateBookingProps) {
 
     
     return ( 
+
+
         <Box display={"flex"} flexDirection={"column"} gap={2} justifyContent={"flex-end"}>
+                    {ApiErrors.map((error, index) => (
+                            <p key={index}>
+                                {error.message}
+                            </p>
+                        ))}
+             {message && <p className={isError ? "error-message" : "success-message"}>{message}</p>}
             <DateRangePicker
                 showOneCalendar
                 shouldDisableDate={isDateBooked}
                 value={dateRange}
-                onChange={(newDateRange: [Date, Date]) => setDateRange(newDateRange)}
+                onChange={(newDateRange: [Date, Date] | any ) => setDateRange(newDateRange)}
             />
             <TextField 
 
