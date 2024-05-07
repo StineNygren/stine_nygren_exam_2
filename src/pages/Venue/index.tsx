@@ -18,6 +18,8 @@ function Venue() {
     if (error) return <p>Error!</p>;
     if (!data) return <div>No data</div>;
 
+console.log(data)
+
 
 
 
@@ -29,7 +31,7 @@ function Venue() {
         </Box >
         <Box display={'flex'} flexDirection={isSmallScreen ? "column" : "row"} m={5}>
         <VenueTextDisplay data={data} />
-        <CreateBooking />
+        <CreateBooking  bookings={data.bookings} />
         </Box>
 
         </Grid>
