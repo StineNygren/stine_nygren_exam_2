@@ -18,6 +18,7 @@ type FormData = {
         localStorage.setItem('name', result.data.name);
         localStorage.setItem('email', result.data.email);
         localStorage.setItem('avatar', result.data.avatar.url);
+        localStorage.setItem('isManager', result.data.venueManager);
         window.location.href = "/home";
       } else {
         console.error('No data in result:', result);

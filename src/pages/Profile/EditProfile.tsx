@@ -32,6 +32,7 @@ function EditProfile({refetch} : EditProfileProps){
     const onSubmit = async (data: FormData)=>{
         try {
             await editProfile({ user: user, profile: data  });
+            localStorage.setItem('isManager', JSON.stringify(data.venueManager));
             console.log("Profile edited")
             refetch();
         } catch (error) {

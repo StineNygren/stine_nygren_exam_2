@@ -83,6 +83,7 @@ export interface Venue {
     avatar: Image;
     banner: Image;
     accessToken: string;
+    venueManager: boolean;
   }
   
   export interface LoginResponse {
