@@ -36,7 +36,7 @@ function Header() {
     localStorage.clear();
     setIsLoggedIn(false);
     setAvatarUrl('defaultAvatar.png');
-    navigate('/home');
+    navigate('/');
   };  
 
   const pages = ['home', 'venues'];
@@ -70,7 +70,7 @@ function Header() {
             variant="h6"
             noWrap
             component="a"
-            href="/home"
+            href="/"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -115,7 +115,8 @@ function Header() {
             >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                <Link component={NavLink} to={`/${page.toLowerCase()}`}>
+                <Link           component={NavLink} 
+            to={page.toLowerCase() === 'home' ? '/' : `/${page.toLowerCase()}`}>
                   <Typography sx={{color: "black"}}  textAlign="center">{page}</Typography>
                 </Link>
                 </MenuItem>
@@ -127,7 +128,7 @@ function Header() {
             variant="h5"
             noWrap
             component="a"
-            href="/home"
+            href="/"
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },
@@ -143,13 +144,14 @@ function Header() {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
-              <Button
-              component={NavLink} to={`/${page.toLowerCase()}`}
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'black', display: 'block' }}
-              >
-                {page}
+            <Button
+            component={NavLink} 
+            to={page.toLowerCase() === 'home' ? '/' : `/${page.toLowerCase()}`}
+            key={page}
+            onClick={handleCloseNavMenu}
+            sx={{ my: 2, color: 'black', display: 'block' }}
+          >
+            {page}
               </Button>
             ))}
           </Box>
