@@ -46,7 +46,6 @@ function BookingCard( {booking, refetch}: BookingCardProps) {
         e.currentTarget.src = "https://via.placeholder.com/500";
     };
 
-    console.log(venue.id)
     
     return (
         <Card sx={{width: "253px", height: "350px"}}>

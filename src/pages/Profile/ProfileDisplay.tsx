@@ -1,8 +1,8 @@
 import { Avatar, Box,  Card, Typography } from "@mui/material";
 import { useScreenTheme} from "../../theme/screenTheme";
 import { ProfileResponse } from "../../types/types";
+import EditProfile from "./EditProfile";
 
-import BasicModal from "../../components/BasicModal";
 
 interface ProfileDisplayProps {
     data: ProfileResponse; 
@@ -28,7 +28,7 @@ function ProfileDisplay({ data, refetch }: ProfileDisplayProps) {
                 <Typography>{data?.email}</Typography>
                 <Typography>{data?.bio}</Typography>
 
-                <BasicModal refetch={refetch}/>
+                <EditProfile refetch={refetch}/>
             </Box >
         </Card>
         </Box>

@@ -15,6 +15,7 @@ import { Link } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { isManager } from '../../../services/localeStorage/localeStorage';
 
 
 function Header() {
@@ -39,7 +40,9 @@ function Header() {
   };  
 
   const pages = ['home', 'venues'];
-  const settings = isLoggedIn ? ['profile', 'create venue', 'logout'] : ['login'];
+  const settings = isLoggedIn 
+  ? ['profile', ...(isManager ? ['create venue'] : []), 'logout'] 
+  : ['login'];
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);

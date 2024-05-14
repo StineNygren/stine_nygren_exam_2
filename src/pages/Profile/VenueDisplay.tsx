@@ -6,11 +6,15 @@ import { isManager } from "../../services/localeStorage/localeStorage";
 
 
 
+
+
 interface ProfileDisplayProps {
     data: ProfileResponse; 
     refetch: () => void;
   }
 function VenueDisplay({ data, refetch }: ProfileDisplayProps) {
+
+
 
 
     const venues = data.venues
@@ -36,22 +40,6 @@ function VenueDisplay({ data, refetch }: ProfileDisplayProps) {
                 </Grid>
             ))
             }
-{/* 
-           { venues.map((venue) => (
-                <Grid p={3} key={venue.id}>
-                    <VenueCard venue={venue} refetch={refetch}/>
-  
-
-
-                    
-                </Grid >
-            ))}
-
-            { bookings.map((booking) => (
-                <Grid p={3} key={booking.id}>
-                        <BookingCard booking={booking} refetch={refetch}/>
-                </Grid>
-            ))} */}
 
          </Grid>
 

@@ -1,7 +1,21 @@
-import { Button, TextField } from "@mui/material";
+import * as React from 'react';
+import { Button, TextField, Box } from "@mui/material";
 import { user } from "../../services/localeStorage/localeStorage";
 import { useEditProfileMutation } from "../../services/api.reducer";
 import { Controller, useForm } from "react-hook-form";
+import Modal from '@mui/material/Modal';
+
+const style = {
+    position: 'absolute' as 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  };
 
 type FormData = {
     bio: string;
@@ -22,6 +36,11 @@ type FormData = {
 
 
 function EditProfile({refetch} : EditProfileProps){
+
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
     const {
         control,
         handleSubmit,
@@ -34,14 +53,27 @@ function EditProfile({refetch} : EditProfileProps){
             await editProfile({ user: user, profile: data  });
             localStorage.setItem('isManager', JSON.stringify(data.venueManager));
             console.log("Profile edited")
+            handleClose()
             refetch();
+            window.location.reload();
         } catch (error) {
             console.error("Failed to edit the profile: ", error);
         }
     }
 
     return ( 
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <div>
+        <Button variant='contained' onClick={handleOpen}>Edit</Button>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+  
+              
+          <form onSubmit={handleSubmit(onSubmit)}>
             <h3>Edit Profile</h3>
             <Controller control={control}  name="bio" render={({ field }) => <TextField {...field} label="Bio" variant="outlined" margin="normal" fullWidth />} />
             <Controller control={control}  name="avatar.url" render={({ field }) => <TextField {...field} label="Avatar URL" variant="outlined" margin="normal" fullWidth />} />
@@ -62,6 +94,10 @@ function EditProfile({refetch} : EditProfileProps){
                     />
             <Button sx={{width: 100, margin: '0 auto'}} type="submit" variant="contained" color="primary">Edit</Button>
         </form>
+          </Box>
+        </Modal>
+      </div>
+
 
      );
 }
