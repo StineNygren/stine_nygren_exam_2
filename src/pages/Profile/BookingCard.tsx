@@ -3,6 +3,7 @@ import { Card, Box, Typography, Button } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { useDeleteBookingMutation } from "../../services/api.reducer";
+import { NavLink } from "react-router-dom";
 
 interface BookingCardProps {
     booking: Booking;
@@ -36,29 +37,50 @@ function BookingCard( {booking, refetch}: BookingCardProps) {
     const formattedDateFrom = dateFrom.toISOString().split('T')[0];
     const formattedDateTo = dateTo.toISOString().split('T')[0];
 
-    return ( 
-  
+    let media = "https://via.placeholder.com/500";
+    if (venue.media && venue.media.length > 0) {
+        media = venue.media[0].url;
+    }
+    
+    const handleError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+        e.currentTarget.src = "https://via.placeholder.com/500";
+    };
 
-
-
-
-                    <Card key={booking.id} sx={{ width: "253px" }}>
-                        <img
-                            src={venue.media && venue.media.length > 0 ? venue.media[0].url : "https://via.placeholder.com/253"}
-                            alt={venue.media && venue.media.length > 0 ? venue.media[0].alt : "Placeholder image"}
-                            style={{ height: '200px' }}
-                        />
-                        <Typography marginX={3} variant="h4">{venue.name}</Typography>
+    console.log(venue.id)
+    
+    return (
+        <Card sx={{width: "253px", height: "350px"}}>
+            <NavLink to={`/venues/${venue.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                <Box
+                    component="img"
+                    src={media}
+                    alt="venue media"
+                    width={"100%"}
+                    height={"200px"}
+                    onError={handleError}
+                />
+                        <Typography sx={{   
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                display: '-webkit-box',
+                WebkitLineClamp: '1',
+                WebkitBoxOrient: 'vertical'
+                }}
+                 marginX={3} variant="h4">{venue.name}</Typography>
                         <Box marginX={3} display={"flex"} justifyContent={"space-between"}>
                             <Typography><LocationOnIcon fontSize="small" /> {venue.location.city || "Unknown"}</Typography>
                             <Typography>{venue.price}$</Typography>
                         </Box>
 
-                            <Typography >{formattedDateFrom} - {formattedDateTo}</Typography>
+                        <Box marginX={3} display={"flex"} justifyContent={"center"}>
 
+                            <Typography  >{formattedDateFrom} - {formattedDateTo}</Typography>
+                        </Box>
+                        </NavLink>
                         <Box display={"flex"} justifyContent={"flex-end"}>
                             <Button onClick={handleDelete} variant="text" color="secondary"><DeleteIcon /></Button>
                         </Box>
+
                     </Card>
 
      );

@@ -27,16 +27,25 @@ function VenueCards({ venue }: VenueCardProps) {
         e.currentTarget.src = "https://via.placeholder.com/500";
     };
     return (
-        <Card sx={{width: "253px", height: "350px"}} >
+        <Card sx={{width: "253px", height: "300px"}} >
             <NavLink   to={`/venues/${venue.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
           <Box
                component="img"
                src={media}
                alt="venue media"
-               sx={{height: '200px'}}
+               width={"100%"}
+               height={"200px"}
+               
                onError={handleError}
           />
-              <Typography  marginX={3} variant="h4">{venue.name}</Typography>
+              <Typography sx={{   
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                display: '-webkit-box',
+                WebkitLineClamp: '1',
+                WebkitBoxOrient: 'vertical'
+                }}    
+                marginX={3} marginTop={2} variant="h4">{venue.name}</Typography>
               <Box marginX={3} display={"flex"} justifyContent={"space-between"}>
               <Typography><LocationOnIcon fontSize="small" /> {venue.location.city || "Unknown"}</Typography>
               <Typography>{venue.price}$</Typography>
