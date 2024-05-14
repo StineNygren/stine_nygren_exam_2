@@ -10,6 +10,8 @@ import { Venue } from "../../types/types";
 import { media } from "../../types/types";
 import { useEffect } from 'react';
 import ClearIcon from '@mui/icons-material/Clear';
+import { errorsSelector } from "../../services/redux.reducer";
+import { useAppSelector } from "../../services/store";
 
 
 
@@ -84,6 +86,8 @@ function CreateVenueForm({ onSubmit, initialData = {}, isEditMode = false }: Cre
       data.rating = Number(data.rating);
       onSubmit(data);
     };
+
+    const ApiErrors = useAppSelector(errorsSelector);
    
    
    
@@ -130,8 +134,8 @@ function CreateVenueForm({ onSubmit, initialData = {}, isEditMode = false }: Cre
                 <Rating
                 sx={{marginBottom: 2}}
                     name="simple-controlled"
-                    value={field.value}
-                    onChange={(newValue) => {
+                    value={Number(field.value)}
+                    onChange={( newValue) => {
                         field.onChange(newValue);
                     }}
                 />
@@ -218,6 +222,11 @@ function CreateVenueForm({ onSubmit, initialData = {}, isEditMode = false }: Cre
                 <Button sx={{marginTop: 2}} type="submit" variant="contained" color="primary">
                 {isEditMode ? 'Edit Venue' : 'Post Venue'}
                 </Button>
+                {ApiErrors.map((error, index) => (
+                <p key={index}>
+                    {error.message}
+                </p>
+            ))}
                 </Grid>
                 </Box>
         </form>
