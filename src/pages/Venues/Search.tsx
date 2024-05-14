@@ -1,7 +1,7 @@
 import { useSearchVenuesQuery } from "../../services/api.reducer";
 import { useState } from 'react';
 import VenueCards from "../../components/VenueCards";
-import { Grid, Button, TextField } from "@mui/material";
+import { Grid, Button, TextField, Box } from "@mui/material";
 
 
 function Search() {
@@ -40,7 +40,7 @@ function Search() {
     
 
     return ( 
-    <div>      
+    <Box display={"flex"} flexDirection={"column"} alignItems={"center"} marginY={5}>      
         <h2>Search</h2>
         <TextField label="Search.." type="text" value={search} onChange={(e) => handleSearch(e)} />
         <Grid container spacing={2} justifyContent="center" alignItems="center">
@@ -50,9 +50,11 @@ function Search() {
         </Grid>
         )) }
         </Grid>
+        <Box display={"flex"} gap={10} >
         <Button variant="contained" onClick={handlePrevius} disabled={page === 1} color="primary">Previus</Button>
         <Button  variant="contained" onClick={handleNext} disabled={data.length < 50}   color="primary">Next</Button>
-    </div>
+        </Box>
+    </Box>
      );
 }
 
