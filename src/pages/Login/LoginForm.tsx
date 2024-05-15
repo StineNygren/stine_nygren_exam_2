@@ -52,11 +52,7 @@ function LoginForm() {
     }
     return ( 
         <>
-        {ApiErrors.map((error, index) => (
-                <p key={index}>
-                    {error.message}
-                </p>
-            ))}
+
         <Grid container   justifyContent="center" >
             <form onSubmit={handleSubmit(onSubmit)}>
               <Grid container direction={"column"} paddingX={5} width={450}>
@@ -75,6 +71,9 @@ function LoginForm() {
                   // Class for the label of the input field
                   "& .MuiInputLabel-outlined": {
                     color: "#FFF",
+                  },
+                  "& .MuiFormHelperText-root": {
+                    color: "#FFF", // Change this to the color you want
                   },
                   mb: 2,
                 }}  type="email" variant="outlined" label="Mail" onChange={onChange} value={value}  helperText={errors.email ? errors.email.message : null} />
@@ -95,9 +94,17 @@ function LoginForm() {
                   "& .MuiInputLabel-outlined": {
                     color: "#FFF",
                   },
+                  "& .MuiFormHelperText-root": {
+                    color: "#FFF", // Change this to the color you want
+                  },
                   mb: 2,
                 }}  type="password" variant="outlined" label="Password" onChange={onChange} value={value} helperText={errors.password ? errors.password.message : null} />
                 }/>
+                        {ApiErrors.map((error, index) => (
+                <p key={index}>
+                    {error.message}
+                </p>
+            ))}
                 <Button sx={{width: 100, margin: '0 auto'}} type="submit" variant="contained" color="primary">Login</Button>
                 </Grid>
             </form>      

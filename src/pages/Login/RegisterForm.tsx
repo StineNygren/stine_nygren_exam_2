@@ -1,6 +1,7 @@
 import { Button, Grid, TextField } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
-
+import { errorsSelector } from "../../services/redux.reducer";
+import { useAppSelector } from "../../services/store";
 import { LoginResponse } from "../../types/types";
 import { useRegisterMutation } from "../../services/api.reducer";
 import { useLoginMutation } from "../../services/api.reducer";
@@ -24,6 +25,7 @@ function RegisterForm() {
 
     const [Register] = useRegisterMutation();
     const [login] = useLoginMutation();
+    const ApiErrors = useAppSelector(errorsSelector);
 
     const onSubmit = async (data: FormData) => {
         try {
@@ -48,6 +50,7 @@ function RegisterForm() {
                 <TextField        sx={{
                   // Root class for the input field
                   "& .MuiOutlinedInput-root": {
+                    color: "#FFF",
 
                     // Class for the border around the input field
                     "& .MuiOutlinedInput-notchedOutline": {
@@ -58,6 +61,9 @@ function RegisterForm() {
                   "& .MuiInputLabel-outlined": {
                     color: "#FFF",
                   },
+                  "& .MuiFormHelperText-root": {
+                    color: "#FFF", // Change this to the color you want
+                  },
                   mb: 2,
                 }}  type="text" variant="outlined" label="Name" onChange={onChange} value={value}  helperText={errors.name ? errors.name.message : null} />
                 }/>
@@ -66,6 +72,7 @@ function RegisterForm() {
                 <TextField sx={{
                   // Root class for the input field
                   "& .MuiOutlinedInput-root": {
+                    color: "#FFF",
                     // Class for the border around the input field
                     "& .MuiOutlinedInput-notchedOutline": {
                       borderColor: "#FFCC6A",
@@ -74,6 +81,9 @@ function RegisterForm() {
                   // Class for the label of the input field
                   "& .MuiInputLabel-outlined": {
                     color: "#FFF",
+                  },
+                  "& .MuiFormHelperText-root": {
+                    color: "#FFF", // Change this to the color you want
                   },
                   mb: 2,
                 }} type="email" variant="outlined" label="Email" onChange={onChange} value={value}  helperText={errors.email ? errors.email.message : null} />
@@ -83,6 +93,7 @@ function RegisterForm() {
                 <TextField sx={{
                   // Root class for the input field
                   "& .MuiOutlinedInput-root": {
+                    color: "#FFF",
                     // Class for the border around the input field
                     "& .MuiOutlinedInput-notchedOutline": {
                       borderColor: "#FFCC6A",
@@ -91,6 +102,9 @@ function RegisterForm() {
                   // Class for the label of the input field
                   "& .MuiInputLabel-outlined": {
                     color: "#FFF",
+                  },
+                  "& .MuiFormHelperText-root": {
+                    color: "#FFF", // Change this to the color you want
                   },
                   mb: 2,
                 }} type="password" variant="outlined" label="Password" onChange={onChange} value={value} helperText={errors.password ? errors.password.message : null} />
@@ -109,6 +123,11 @@ function RegisterForm() {
                         </label>
                     )}
                     />
+                    {ApiErrors.map((error, index) => (
+                        <p key={index}>
+                            {error.message}
+                        </p>
+                    ))}
                 <Button sx={{width: 100, margin: '0 auto'}} type="submit" variant="contained" color="primary">Register</Button>
                 </Grid>
         </form>
