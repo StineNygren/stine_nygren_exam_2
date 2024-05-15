@@ -7,6 +7,7 @@ import { useCreateBookingMutation } from '../../services/api.reducer';
 import { useState } from 'react';
 import { errorsSelector } from "../../services/redux.reducer";
 import { useAppSelector } from "../../services/store";
+import { user } from '../../services/localeStorage/localeStorage';
 
 
 
@@ -16,10 +17,12 @@ import { useAppSelector } from "../../services/store";
 interface CreateBookingProps {
     bookings: Booking[];
     id: string;
+    owner: string;
 }
 
 
-function CreateBooking( { bookings, id }: CreateBookingProps) {
+function CreateBooking( { bookings, id, owner }: CreateBookingProps) {
+    console.log(owner)
 
     const [createBooking] = useCreateBookingMutation();
     const ApiErrors = useAppSelector(errorsSelector);
@@ -114,7 +117,7 @@ function CreateBooking( { bookings, id }: CreateBookingProps) {
                     }
                 }}
             />
-            <Button variant="contained" onClick={onSubmit} type="submit">Book</Button>
+            <Button disabled={!user || owner === user} variant="contained" onClick={onSubmit} type="submit">Book</Button>
         </Box>
     );
 }
