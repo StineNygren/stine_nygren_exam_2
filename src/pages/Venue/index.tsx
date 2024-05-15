@@ -19,7 +19,7 @@ function Venue() {
     if (!data) return <div>No data</div>;
 
 
-
+console.log(data)
 
 
 

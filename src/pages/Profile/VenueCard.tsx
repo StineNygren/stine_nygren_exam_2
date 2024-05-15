@@ -6,6 +6,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import InfoModal from "./InfoModal";
 import EditVenue from "./EditVenue";
 import { NavLink } from "react-router-dom";
+import { isManager } from "../../services/localeStorage/localeStorage";
 
 
 
@@ -69,7 +70,7 @@ const handleError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
             <Box display={"flex"} justifyContent={"flex-end"}>
             <InfoModal venueId={venue.id}/>
             <EditVenue venueId={venue.id} refetch={refetch}/>
-            <Button onClick={handleDelete} variant="text" color="secondary"><DeleteIcon/></Button>
+            <Button disabled={!isManager} onClick={handleDelete} variant="text" color="secondary"><DeleteIcon/></Button>
             </Box>
       </Card>
     );
