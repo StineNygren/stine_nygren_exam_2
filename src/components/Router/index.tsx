@@ -7,6 +7,7 @@ import Venues from "../../pages/Venues";
 import Venue from "../../pages/Venue";
 import Profile from "../../pages/Profile";
 import CreateVenue from "../../pages/CreateVenue";
+import Success from "../../pages/Success";
 
 const Router = createBrowserRouter([
     {
@@ -39,6 +40,10 @@ const Router = createBrowserRouter([
         {
             path: "create venue",
             element: <CreateVenue />
+        },
+        {
+            path: "success",
+            element: <Success />
         },
 
         {
