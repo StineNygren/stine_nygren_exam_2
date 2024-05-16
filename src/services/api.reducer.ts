@@ -49,7 +49,7 @@ endpoints: (builder) => ({
     }),
     createBooking: builder.mutation({
       query: (body) => ({
-        url: '/holidaze/bookings',
+        url: '/holidaze/bookings?_venue=true',
         method: 'POST',
         body,
       }),

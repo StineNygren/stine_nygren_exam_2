@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { errorsSelector } from "../../services/redux.reducer";
 import { useAppSelector } from "../../services/store";
 import { user } from '../../services/localeStorage/localeStorage';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -55,6 +56,8 @@ function CreateBooking( { bookings, id, owner }: CreateBookingProps) {
     const [message, setMessage] = useState<string | null>(null);
     const [isError, setIsError] = useState(false);
 
+    const navigate = useNavigate();
+
     const onSubmit = async () => {
         setMessage(null);
         
@@ -74,6 +77,7 @@ function CreateBooking( { bookings, id, owner }: CreateBookingProps) {
             const result = await createBooking(bookingData).unwrap();
             console.log('Booking created:', result);
             setMessage('Booking created successfully');
+            navigate(`/success`, { state: { result } });
             setIsError(false);
     
         } catch (error) {
