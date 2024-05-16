@@ -15,6 +15,7 @@ function Profile() {
     if (error) return <p>Error!</p>;
     if (!data) return <div>No data</div>;
 
+
     return ( 
         <>
         <Box
@@ -25,7 +26,7 @@ function Profile() {
             height: '300px',
             objectFit: 'cover',
             width: '100%',
-            maxWidth: "1800px",
+
         }}
         />
         <Box display={"flex"} flexDirection={isSmallScreen ? "column" : "row"}>

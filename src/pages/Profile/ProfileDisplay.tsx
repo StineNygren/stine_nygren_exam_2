@@ -28,7 +28,7 @@ function ProfileDisplay({ data, refetch }: ProfileDisplayProps) {
                 <Typography>{data?.email}</Typography>
                 <Typography>{data?.bio}</Typography>
 
-                <EditProfile refetch={refetch}/>
+                <EditProfile profile={data} refetch={refetch}/>
             </Box >
         </Card>
         </Box>

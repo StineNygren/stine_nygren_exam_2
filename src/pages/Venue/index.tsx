@@ -19,7 +19,7 @@ function Venue() {
     if (!data) return <div>No data</div>;
 
 
-
+console.log(data)
 
 
 
@@ -31,7 +31,7 @@ function Venue() {
         </Box >
         <Box display={'flex'} flexDirection={isSmallScreen ? "column" : "row"} m={5} gap={5}>
         <VenueTextDisplay data={data} />
-        <CreateBooking id={data.id} bookings={data.bookings} />
+        <CreateBooking id={data.id} bookings={data.bookings} owner={data.owner.name} />
         </Box>
 
         </Grid>

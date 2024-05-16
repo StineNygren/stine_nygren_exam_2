@@ -4,6 +4,7 @@ import { user } from "../../services/localeStorage/localeStorage";
 import { useEditProfileMutation } from "../../services/api.reducer";
 import { Controller, useForm } from "react-hook-form";
 import Modal from '@mui/material/Modal';
+import { ProfileResponse } from '../../types/types';
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -31,21 +32,30 @@ type FormData = {
   };
 
   interface EditProfileProps {
+    profile: ProfileResponse;
     refetch: () => void;
   }
 
-
-function EditProfile({refetch} : EditProfileProps){
+function EditProfile({profile, refetch} : EditProfileProps){
 
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
+    console.log(profile)
+
+    const defaultFormData: FormData = {
+        bio: profile.bio || "",
+        avatar: profile.avatar || { url: "", alt: "" },
+        banner: profile.banner || { url: "", alt: "" },
+        venueManager: profile.venueManager || false
+    };
+
     const {
         control,
         handleSubmit,
 
-    } = useForm<FormData>({defaultValues: {bio: "", avatar: { url: "", alt: "" }, banner: { url: "", alt: "" }, venueManager: false}});
+    } = useForm<FormData>({defaultValues: {...defaultFormData}});
 
     const [editProfile] = useEditProfileMutation();
     const onSubmit = async (data: FormData)=>{
