@@ -141,5 +141,7 @@ export interface Venue {
     data: ExtendedUser;
     venues: Venue[];
     bookings: Booking[];
+    venueManager: boolean;
     meta?: Record<string, unknown>; 
+
   }

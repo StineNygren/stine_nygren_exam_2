@@ -15,7 +15,6 @@ function Profile() {
     if (error) return <p>Error!</p>;
     if (!data) return <div>No data</div>;
 
-    console.log(data)
 
     return ( 
         <>
