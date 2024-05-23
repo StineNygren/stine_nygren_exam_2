@@ -39,7 +39,7 @@ function Header() {
     navigate('/');
   };  
 
-  const pages = ['home', 'venues'];
+  const pages = ['home'];
   const settings = isLoggedIn 
   ? ['profile', ...(isManager ? ['create venue'] : []), 'logout'] 
   : ['login'];
