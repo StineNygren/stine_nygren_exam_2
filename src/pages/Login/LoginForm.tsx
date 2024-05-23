@@ -54,7 +54,7 @@ function LoginForm() {
               <Grid container direction={"column"} paddingX={5} width={450}>
                 <Controller control={control} name="email" rules={{required: "email is required",pattern: { value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i, message: "invalid email address"
                 }}} render={({field:{onChange, value}}) =>
-                <TextField sx={{
+                <TextField id="login_email_input" sx={{
                   // Root class for the input field
                   "& .MuiOutlinedInput-root": {
                     color: "#FFF",
@@ -76,7 +76,7 @@ function LoginForm() {
                 }/>
                 <Controller control={control} name="password" rules={{required: "password is required", minLength: { value: 8, message: "password must be at least 8 characters long"
                 }}} render={({field:{onChange, value}}) =>
-                <TextField sx={{
+                <TextField id="login_password_input" sx={{
                   // Root class for the input field
                   "& .MuiOutlinedInput-root": {
                     color: "#FFF",
@@ -101,7 +101,7 @@ function LoginForm() {
                     {error.message}
                 </p>
             ))}
-                <Button sx={{width: 100, margin: '0 auto'}} type="submit" variant="contained" color="primary">Login</Button>
+                <Button id="login_btn"  sx={{width: 100, margin: '0 auto'}} type="submit" variant="contained" color="primary">Login</Button>
                 </Grid>
             </form>      
         </Grid>
