@@ -5,7 +5,6 @@ import { errorsSelector } from "../../services/redux.reducer";
 import { useAppSelector } from "../../services/store";
 import { LoginResponse } from "../../types/types";
 
-
 type FormData = {
     email: string;
     password: string;
@@ -26,7 +25,6 @@ localStorage.setItem('isManager', result.data.venueManager.toString());
 }
 
 function LoginForm() {
-
     
     const {
         control,
@@ -36,8 +34,6 @@ function LoginForm() {
 
     const [login] = useLoginMutation();
     const ApiErrors = useAppSelector(errorsSelector);
-
-
 
     const onSubmit = async (data: FormData) => {
         try {

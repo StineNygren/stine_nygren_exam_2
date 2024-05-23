@@ -5,13 +5,11 @@ import { Grid, Button, TextField, Box, Typography } from "@mui/material";
 import beach from '../../assets/beach.png';
 import { useScreenTheme } from "../../theme/screenTheme";
 
-
 function Search() {
     const { isSmallScreen } = useScreenTheme();
     const [search, setSearch] = useState("");
     const [param, setParam] = useState("?");
-    const [page, setPage] = useState(1);
-    
+    const [page, setPage] = useState(1);    
    
     const { data = [], error, isLoading } = useSearchVenuesQuery({ search: param, page: page });
     if (isLoading) return <p>Loading...</p>;
@@ -39,8 +37,7 @@ function Search() {
             setSearch(currentInputValue);
             setParam(`/search?q=${currentInputValue}&`);
         }
-    }
-    
+    }    
 
     return ( 
     <Box display={"flex"} flexDirection={"column"} alignItems={"center"} marginBottom={5}> 
@@ -50,9 +47,6 @@ function Search() {
             height: '300px',
             backgroundRepeat: 'no-repeat',
             backgroundSize: 'cover',
-            
-            
-
         }}>   
         <Box sx={{backgroundColor: "white"}} paddingY={2} paddingX={5} minWidth={isSmallScreen ? "100%" : "500px"}>
         <h2>Search</h2>

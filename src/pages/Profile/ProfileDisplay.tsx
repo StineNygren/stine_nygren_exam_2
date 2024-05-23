@@ -3,7 +3,6 @@ import { useScreenTheme} from "../../theme/screenTheme";
 import { ProfileResponse } from "../../types/types";
 import EditProfile from "./EditProfile";
 
-
 interface ProfileDisplayProps {
     data: ProfileResponse; 
     refetch: () => void;
@@ -12,10 +11,6 @@ interface ProfileDisplayProps {
 function ProfileDisplay({ data, refetch }: ProfileDisplayProps) {
 
     const { isSmallScreen } = useScreenTheme();
-
-
-
-
 
     return ( 
         <Box display={"flex"} flexDirection={"column"} alignItems={isSmallScreen ? "center" : "flex-start"}>
@@ -32,7 +27,6 @@ function ProfileDisplay({ data, refetch }: ProfileDisplayProps) {
             </Box >
         </Card>
         </Box>
-
      );
 }
 

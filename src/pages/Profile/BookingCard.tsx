@@ -15,7 +15,6 @@ function BookingCard( {booking, refetch}: BookingCardProps) {
     const [deleteBooking] = useDeleteBookingMutation();
 
     const handleDelete = async () => {
-
         try {
             await deleteBooking(booking.id).unwrap();
 
@@ -29,10 +28,8 @@ function BookingCard( {booking, refetch}: BookingCardProps) {
 
     const venue = booking.venue;
 
-
     const dateFrom = new Date(booking.dateFrom);
     const dateTo = new Date(booking.dateTo);
-
 
     const formattedDateFrom = dateFrom.toISOString().split('T')[0];
     const formattedDateTo = dateTo.toISOString().split('T')[0];
@@ -45,7 +42,6 @@ function BookingCard( {booking, refetch}: BookingCardProps) {
     const handleError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
         e.currentTarget.src = "https://via.placeholder.com/500";
     };
-
     
     return (
         <Card sx={{width: "253px", height: "350px"}}>
@@ -81,7 +77,6 @@ function BookingCard( {booking, refetch}: BookingCardProps) {
                         </Box>
 
                     </Card>
-
      );
 }
 

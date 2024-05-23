@@ -17,7 +17,6 @@ import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { isManager } from '../../../services/localeStorage/localeStorage';
 
-
 function Header() {
   
   const navigate = useNavigate();

@@ -4,10 +4,6 @@ import RegisterForm from "./RegisterForm";
 import { Button, Card, Box } from '@mui/material';
 import bgImage from '../../assets/auth_bg.png';
 
-
-
-
-
 function Login() {
     const [isLoginForm, setIsLoginForm] = useState(true);
 

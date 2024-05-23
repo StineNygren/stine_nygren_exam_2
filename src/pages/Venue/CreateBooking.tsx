@@ -10,17 +10,11 @@ import { useAppSelector } from "../../services/store";
 import { user } from '../../services/localeStorage/localeStorage';
 import { useNavigate } from 'react-router-dom';
 
-
-
-
-
-
 interface CreateBookingProps {
     bookings: Booking[];
     id: string;
     owner: string;
 }
-
 
 function CreateBooking( { bookings, id, owner }: CreateBookingProps) {
     console.log(owner)
@@ -84,13 +78,9 @@ function CreateBooking( { bookings, id, owner }: CreateBookingProps) {
             console.error('Failed to create booking:', error);
 
         }
-    }
-
-
+    };
     
     return ( 
-
-
         <Box display={"flex"} flexDirection={"column"} gap={2} justifyContent={"flex-end"}>
                     {ApiErrors.map((error, index) => (
                             <p key={index}>
@@ -104,9 +94,7 @@ function CreateBooking( { bookings, id, owner }: CreateBookingProps) {
                 value={dateRange}
                 onChange={(newDateRange: [Date, Date] | any ) => setDateRange(newDateRange)}
             />
-            <TextField 
-
-            
+            <TextField             
                 label="Guests" 
                 type="number" 
                 value={guests}

@@ -8,16 +8,12 @@ import EditVenue from "./EditVenue";
 import { NavLink } from "react-router-dom";
 import { isManager } from "../../services/localeStorage/localeStorage";
 
-
-
-
 interface VenueCardProps {
     venue: Venue;
     refetch: () => void;
   }
   
   function VenueCard({ venue, refetch }: VenueCardProps) {
-
 
     const [deleteVenue] = useDeleteVenueMutation();
 

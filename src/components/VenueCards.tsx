@@ -3,15 +3,9 @@ import { Box, Card, Typography } from "@mui/material";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { NavLink } from "react-router-dom";
 
-
-
-
-
 interface VenueCardProps {
     venue: Venue;
   }
-  
-
 
 function VenueCards({ venue }: VenueCardProps) {
 

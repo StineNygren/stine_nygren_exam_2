@@ -32,11 +32,7 @@ export default function EditVenue({ venueId, refetch }: InfoModalProps) {
 
   const { data: venue, isLoading} = useGetVenueQuery(venueId);
 
-
   const [editVenue] = useEditVenueMutation();
-
-
-
 
   return (
     <div>
@@ -71,7 +67,4 @@ export default function EditVenue({ venueId, refetch }: InfoModalProps) {
     </div>
   );
 }
-
-
-
 

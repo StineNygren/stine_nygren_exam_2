@@ -13,9 +13,6 @@ import ClearIcon from '@mui/icons-material/Clear';
 import { errorsSelector } from "../../services/redux.reducer";
 import { useAppSelector } from "../../services/store";
 
-
-
-
 type FormData = {
   name?: string;
   description?: string;
@@ -60,7 +57,6 @@ function CreateVenueForm({ onSubmit, initialData = {}, isEditMode = false }: Cre
         ...initialData,
       },
     });
-
    
     useEffect(() => {
       if (isEditMode && initialData !== null && initialData !== undefined) {
@@ -70,8 +66,6 @@ function CreateVenueForm({ onSubmit, initialData = {}, isEditMode = false }: Cre
         }
       } 
     }, [initialData, isEditMode, setValue]);
-
-
    
     const { fields, append, remove } = useFieldArray({
       control,
@@ -87,9 +81,7 @@ function CreateVenueForm({ onSubmit, initialData = {}, isEditMode = false }: Cre
       onSubmit(data);
     };
 
-    const ApiErrors = useAppSelector(errorsSelector);
-   
-   
+    const ApiErrors = useAppSelector(errorsSelector);  
    
     return ( 
         <>

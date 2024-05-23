@@ -1,17 +1,10 @@
-
 import Search from "./Search";
 
 function Home() {
 
+    return (   
 
-
-    return ( 
-  
-
-        <Search />
-
-
-  
+        <Search />  
 
      );
 }

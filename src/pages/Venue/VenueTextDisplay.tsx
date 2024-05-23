@@ -12,7 +12,6 @@ interface VenueTextDisplayProps {
 
 function VenueTextDisplay( { data }: VenueTextDisplayProps) {
 
-
     return ( 
         <Box maxWidth={"500px"}>
             <h1>{data.name}</h1>

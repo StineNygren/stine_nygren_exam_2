@@ -7,7 +7,6 @@ import { Venue } from "../../types/types";
 function CreateVenue() {
     const [createVenue] = useCreateVenueMutation();
     const navigate = useNavigate();
-
     
 const onSubmit = async (data: Partial<Venue>) => {
     try {

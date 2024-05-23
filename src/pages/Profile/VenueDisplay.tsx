@@ -5,18 +5,11 @@ import BookingCard from "./BookingCard";
 import { isManager } from "../../services/localeStorage/localeStorage";
 import { useState } from 'react';
 
-
-
-
-
-
 interface ProfileDisplayProps {
     data: ProfileResponse; 
     refetch: () => void;
   }
 function VenueDisplay({ data, refetch }: ProfileDisplayProps) {
-    // refetch()
-
 
     const [view, setView] = useState('venues');
 
@@ -86,4 +79,3 @@ console.log(venues.length)
 
 export default VenueDisplay;
 
-//sims@stud.noroff.no
