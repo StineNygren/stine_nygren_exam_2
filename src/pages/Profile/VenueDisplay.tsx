@@ -1,4 +1,4 @@
-import { Box, Grid, Button } from "@mui/material";
+import { Box, Grid, Button, Typography } from "@mui/material";
 import { ProfileResponse } from "../../types/types";
 import VenueCard from "./VenueCard";
 import BookingCard from "./BookingCard";
@@ -54,7 +54,7 @@ console.log(venues.length)
           </Grid>
         ))
       ) : (
-        <p>No venues available.</p>
+        <Typography marginTop={5}>No venues available.</Typography>
       )
     ) : (
       bookings.length > 0 ? (
@@ -64,15 +64,12 @@ console.log(venues.length)
           </Grid>
         ))
       ) : (
-        <p>No bookings available.</p>
+        <Typography marginTop={5}>No bookings available.</Typography>
       )
     )}
     </Grid>
             </>
             )}
-
-
-
          </Box>
      );
 }

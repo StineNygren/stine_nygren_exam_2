@@ -2,21 +2,26 @@ import {  DateRangePicker } from 'rsuite';
 import 'rsuite/dist/rsuite.min.css';
 import { Booking } from '../../types/types';
 import { isWithinInterval, parseISO, isBefore, endOfDay, isValid, isAfter } from 'date-fns';
-import { Box, Button, TextField } from '@mui/material';
+import { Box, Button, TextField, Typography } from '@mui/material';
 import { useCreateBookingMutation } from '../../services/api.reducer';
 import { useState } from 'react';
 import { errorsSelector } from "../../services/redux.reducer";
 import { useAppSelector } from "../../services/store";
 import { user } from '../../services/localeStorage/localeStorage';
 import { useNavigate } from 'react-router-dom';
+import { differenceInDays } from 'date-fns';
+
+
 
 interface CreateBookingProps {
     bookings: Booking[];
     id: string;
     owner: string;
+    price: number;
+    maxGuests: number;
 }
 
-function CreateBooking( { bookings, id, owner }: CreateBookingProps) {
+function CreateBooking( { bookings, id, owner, price, maxGuests }: CreateBookingProps) {
     console.log(owner)
 
     const [createBooking] = useCreateBookingMutation();
@@ -49,6 +54,9 @@ function CreateBooking( { bookings, id, owner }: CreateBookingProps) {
     const [guests, setGuests] = useState(1);
     const [message, setMessage] = useState<string | null>(null);
     const [isError, setIsError] = useState(false);
+
+    const numDays = differenceInDays(dateRange[1], dateRange[0]);
+    const totalPrice = numDays * price;
 
     const navigate = useNavigate();
 
@@ -88,6 +96,10 @@ function CreateBooking( { bookings, id, owner }: CreateBookingProps) {
                             </p>
                         ))}
              {message && <p className={isError ? "error-message" : "success-message"}>{message}</p>}
+             <Typography>Max guests: {maxGuests}</Typography>
+             <Typography>Price pr nigth: {price}</Typography>
+             <Typography>Total price: {totalPrice}</Typography>
+             
             <DateRangePicker
                 showOneCalendar
                 shouldDisableDate={isDateBooked}
@@ -100,12 +112,12 @@ function CreateBooking( { bookings, id, owner }: CreateBookingProps) {
                 value={guests}
                 onChange={(e) => {
                     if (e.target.value === '') {
-                        setGuests(0);
+                        setGuests(1);
                     } else {
                         const numGuests = parseInt(e.target.value);
-                        if (!isNaN(numGuests)) {
+                        if (!isNaN(numGuests) && numGuests >= 1 && numGuests <= maxGuests) {
                             setGuests(numGuests);
-                        }
+                          }
                     }
                 }}
             />

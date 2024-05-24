@@ -65,7 +65,7 @@ function EditProfile({profile, refetch} : EditProfileProps){
             console.log("Profile edited")
             handleClose()
             refetch();
-            window.location.reload();
+            handleClose();
         } catch (error) {
             console.error("Failed to edit the profile: ", error);
         }

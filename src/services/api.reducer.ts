@@ -26,7 +26,7 @@ endpoints: (builder) => ({
       transformResponse: (response: { data: Array<Venue> }) => response.data,
     }),
     searchVenues: builder.query<Array<Venue>, { search: string, page: number }>({
-      query: ({search, page}) => `/holidaze/venues${search}limit=50&page=${page}&sortOrder=asc&sort=created`,
+      query: ({search, page}) => `/holidaze/venues${search}limit=50&page=${page}&sortOrder=desc&sort=created`,
       transformResponse: (response: { data: Array<Venue> }) => response.data,
     }),
     getVenue: builder.query<Venue, string>({
@@ -108,3 +108,5 @@ export const {
   useCreateBookingMutation,
   useDeleteBookingMutation,
 } = holidazeApi;
+
+export type HolidazeApi = typeof holidazeApi;

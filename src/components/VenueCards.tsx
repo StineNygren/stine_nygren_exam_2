@@ -39,7 +39,7 @@ function VenueCards({ venue }: VenueCardProps) {
                 WebkitLineClamp: '1',
                 WebkitBoxOrient: 'vertical'
                 }}    
-                marginX={3} marginTop={2} variant="h4">{venue.name}</Typography>
+                marginX={3} marginY={2} fontSize={"large"} >{venue.name}</Typography>
               <Box marginX={3} display={"flex"} justifyContent={"space-between"}>
               <Typography><LocationOnIcon fontSize="small" /> {venue.location.city || "Unknown"}</Typography>
               <Typography>{venue.price}$</Typography>

@@ -49,7 +49,7 @@ function Search() {
             backgroundSize: 'cover',
         }}>   
         <Box sx={{backgroundColor: "white"}} paddingY={2} paddingX={5} minWidth={isSmallScreen ? "100%" : "500px"}>
-        <h2>Search</h2>
+        <Typography fontSize={"large"}>Find your next new adventure!</Typography>
         <TextField sx={{width: "100%"}} label="Search.." type="text" value={search} onChange={(e) => handleSearch(e)} />
         </Box> 
         </Box> 

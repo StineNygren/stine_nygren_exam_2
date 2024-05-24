@@ -61,7 +61,7 @@ function BookingCard( {booking, refetch}: BookingCardProps) {
                 WebkitLineClamp: '1',
                 WebkitBoxOrient: 'vertical'
                 }}
-                 marginX={3} variant="h4">{venue.name}</Typography>
+                 marginX={3} marginY={1} fontSize={"large"}>{venue.name}</Typography>
                         <Box marginX={3} display={"flex"} justifyContent={"space-between"}>
                             <Typography><LocationOnIcon fontSize="small" /> {venue.location.city || "Unknown"}</Typography>
                             <Typography>{venue.price}$</Typography>

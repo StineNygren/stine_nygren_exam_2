@@ -22,7 +22,7 @@ function VenueTextDisplay( { data }: VenueTextDisplayProps) {
             {data.meta.parking && <Typography><LocalParkingIcon /> Parking</Typography>}
             {data.meta.breakfast && <Typography><RestaurantIcon /> Breakfast</Typography>}
             {data.meta.pets && <Typography><PetsIcon /> Pet Friendly</Typography>}
-            <Typography>Price: {data.price}$</Typography>
+            
         </Box>
      );
 }

@@ -54,6 +54,7 @@ export default function EditVenue({ venueId, refetch }: InfoModalProps) {
         try {
             await editVenue({ id: venueId, body: data });
             refetch();
+            handleClose();
         } catch (error) {
             console.error(error);
             

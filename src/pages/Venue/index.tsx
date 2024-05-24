@@ -14,6 +14,7 @@ function Venue() {
     if (isLoading) return <p>Loading...</p>;
     if (error) return <p>Error!</p>;
     if (!data) return <div>No data</div>;
+    console.log(data);
 
     return ( 
         <Grid container justifyContent="center" alignItems="center" flexDirection={"column"}>
@@ -22,7 +23,9 @@ function Venue() {
         </Box >
         <Box display={'flex'} flexDirection={isSmallScreen ? "column" : "row"} m={5} gap={5}>
         <VenueTextDisplay data={data} />
-        <CreateBooking id={data.id} bookings={data.bookings} owner={data.owner.name} />
+
+        <CreateBooking id={data.id} bookings={data.bookings} price={data.price} maxGuests={data.maxGuests} owner={data.owner.name} />
+
         </Box>
 
         </Grid>
