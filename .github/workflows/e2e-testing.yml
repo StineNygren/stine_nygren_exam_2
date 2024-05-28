@@ -24,5 +24,10 @@ jobs:
       - name: Install Cypress
         run: npm install cypress
 
+      - name: Start server
+        run: npm start &
+        env:
+          CI: true
+
       - name: Run Tests
         run: npm run test-e2e-cli
