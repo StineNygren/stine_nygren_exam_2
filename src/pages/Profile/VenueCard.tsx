@@ -1,4 +1,4 @@
-import { Box, Button, Card, Typography } from "@mui/material";
+import { Box, Button, Card, Typography, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 import { Venue } from "../../types/types";
 import { useDeleteVenueMutation } from "../../services/api.reducer";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -7,6 +7,7 @@ import InfoModal from "./InfoModal";
 import EditVenue from "./EditVenue";
 import { NavLink } from "react-router-dom";
 import { isManager } from "../../services/localeStorage/localeStorage";
+import { useState } from "react";
 
 interface VenueCardProps {
     venue: Venue;
@@ -14,6 +15,16 @@ interface VenueCardProps {
   }
   
   function VenueCard({ venue, refetch }: VenueCardProps) {
+
+    const [open, setOpen] = useState(false);
+
+    const handleClickOpen = () => {
+      setOpen(true);
+    };
+    
+    const handleClose = () => {
+      setOpen(false);
+    };
 
     const [deleteVenue] = useDeleteVenueMutation();
 
@@ -66,7 +77,28 @@ const handleError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
             <Box display={"flex"} justifyContent={"flex-end"}>
             <InfoModal venueId={venue.id}/>
             <EditVenue venueId={venue.id} refetch={refetch}/>
-            <Button disabled={!isManager} onClick={handleDelete} variant="text" color="secondary"><DeleteIcon/></Button>
+            <Button disabled={!isManager} onClick={handleClickOpen} variant="text" color="secondary"><DeleteIcon /></Button>
+            <Dialog
+              open={open}
+              onClose={handleClose}
+            >
+              <DialogTitle>
+                Confirm Delete
+              </DialogTitle>
+              <DialogContent>
+                <DialogContentText>
+                  Are you sure you want to delete this venue?
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleClose} color="secondary">
+                  Cancel
+                </Button>
+                <Button onClick={handleDelete} color="error">
+                  Delete
+                </Button>
+              </DialogActions>
+            </Dialog>
             </Box>
       </Card>
     );

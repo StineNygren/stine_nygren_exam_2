@@ -32,7 +32,9 @@ function VenueCards({ venue }: VenueCardProps) {
                
                onError={handleError}
           />
-              <Typography sx={{   
+              <Typography 
+                className="venue-name"
+              sx={{   
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
                 display: '-webkit-box',

@@ -88,21 +88,23 @@ function EditProfile({profile, refetch} : EditProfileProps){
             <Controller control={control}  name="bio" render={({ field }) => <TextField {...field} label="Bio" variant="outlined" margin="normal" fullWidth />} />
             <Controller control={control}  name="avatar.url" render={({ field }) => <TextField {...field} label="Avatar URL" variant="outlined" margin="normal" fullWidth />} />
             <Controller control={control}  name="banner.url" render={({ field }) => <TextField {...field} label="Banner URL" variant="outlined" margin="normal" fullWidth />} />
+            <Box display="flex" flexDirection="column" alignItems="center">
             <Controller
-                    control={control}
-                    name="venueManager"
-                    render={({ field }) => (
-                        <label>
-                        Venue manager
-                        <input
-                            type="checkbox"
-                            checked={field.value}
-                            onChange={(e) => field.onChange(e.target.checked)}
-                        />
-                        </label>
-                    )}
-                    />
-            <Button sx={{width: 100, margin: '0 auto'}} type="submit" variant="contained" color="primary">Edit</Button>
+              control={control}
+              name="venueManager"
+              render={({ field }) => (
+                <label>
+                  Venue manager
+                  <input
+                    type="checkbox"
+                    checked={field.value}
+                    onChange={(e) => field.onChange(e.target.checked)}
+                  />
+                </label>
+              )}
+            />
+            <Button sx={{width: 100, marginTop: 2}} type="submit" variant="contained" color="primary">Edit</Button>
+          </Box>
         </form>
           </Box>
         </Modal>

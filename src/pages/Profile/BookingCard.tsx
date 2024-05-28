@@ -1,9 +1,11 @@
 import { Booking } from "../../types/types";
-import { Card, Box, Typography, Button } from "@mui/material";
+import { Card, Box, Typography, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { useDeleteBookingMutation } from "../../services/api.reducer";
 import { NavLink } from "react-router-dom";
+import { useState } from "react";
+
 
 interface BookingCardProps {
     booking: Booking;
@@ -11,6 +13,16 @@ interface BookingCardProps {
   }
 
 function BookingCard( {booking, refetch}: BookingCardProps) {
+
+    const [open, setOpen] = useState(false);
+
+const handleClickOpen = () => {
+  setOpen(true);
+};
+
+const handleClose = () => {
+  setOpen(false);
+};
 
     const [deleteBooking] = useDeleteBookingMutation();
 
@@ -73,10 +85,30 @@ function BookingCard( {booking, refetch}: BookingCardProps) {
                         </Box>
                         </NavLink>
                         <Box display={"flex"} justifyContent={"flex-end"}>
-                            <Button onClick={handleDelete} variant="text" color="secondary"><DeleteIcon /></Button>
+                        <Button onClick={handleClickOpen} variant="text" color="secondary"><DeleteIcon /></Button>
+                        <Dialog
+                            open={open}
+                            onClose={handleClose}
+                        >
+                            <DialogTitle>
+                            Confirm Delete
+                            </DialogTitle>
+                            <DialogContent>
+                            <DialogContentText>
+                                Are you sure you want to delete this booking?
+                            </DialogContentText>
+                            </DialogContent>
+                            <DialogActions>
+                            <Button onClick={handleClose} color="secondary">
+                                Cancel
+                            </Button>
+                            <Button onClick={handleDelete} color="error">
+                                Delete
+                            </Button>
+                            </DialogActions>
+                        </Dialog>
                         </Box>
-
-                    </Card>
+                        </Card>
      );
 }
 

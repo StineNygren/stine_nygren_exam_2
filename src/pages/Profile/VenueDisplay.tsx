@@ -39,10 +39,10 @@ console.log(venues.length)
         </> 
             ) : (
             <>
-                <Button  variant="outlined" sx={{color: "#343434"}} onClick={() => {setView('venues'); refetch();}}>
+                <Button  variant={view === "venues" ? "contained" : "outlined"} sx={{color: "#343434"}} onClick={() => {setView('venues'); refetch();}}>
                 Show Venues
                 </Button>
-                <Button variant="outlined" sx={{color: "#343434"}} onClick={() => {setView('bookings'); refetch();}}>
+                <Button variant={view === "bookings" ? "contained" : "outlined"} sx={{color: "#343434"}} onClick={() => {setView('bookings'); refetch();}}>
                 Show Bookings
                 </Button>
                 <Grid container spacing={2} justifyContent="center" alignItems="center">

@@ -1,3 +1,4 @@
+/// <reference types="cypress" />
 describe("logs in to Holidaze", () => {
   it("goes to login form and logs in", () => {
     //logs in

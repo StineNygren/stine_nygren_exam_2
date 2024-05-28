@@ -50,7 +50,7 @@ function Search() {
         }}>   
         <Box sx={{backgroundColor: "white"}} paddingY={2} paddingX={5} minWidth={isSmallScreen ? "100%" : "500px"}>
         <Typography fontSize={"large"}>Find your next new adventure!</Typography>
-        <TextField sx={{width: "100%"}} label="Search.." type="text" value={search} onChange={(e) => handleSearch(e)} />
+        <TextField id="search_input" sx={{width: "100%"}} label="Search.." type="text" value={search} onChange={(e) => handleSearch(e)} />
         </Box> 
         </Box> 
         <Typography m={5} variant="h1">Hotells for you!</Typography>
