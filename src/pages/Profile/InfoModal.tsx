@@ -5,7 +5,6 @@ import InfoIcon from '@mui/icons-material/Info';
 import Modal from '@mui/material/Modal';
 import { useGetVenueQuery } from '../../services/api.reducer';
 
-
 const style = {
   position: 'absolute' as 'absolute',
   top: '50%',
@@ -28,11 +27,6 @@ export default function InfoModal({ venueId }: InfoModalProps) {
   const handleClose = () => setOpen(false);
 
   const { data: venue} = useGetVenueQuery(venueId);
-
-
-
-
-
 
   return (
     <div>
@@ -57,9 +51,7 @@ export default function InfoModal({ venueId }: InfoModalProps) {
             
           </div>
            ))}
-          <Button onClick={handleClose}>Close</Button>
-            
-                
+          <Button onClick={handleClose}>Close</Button>               
         </Box>
       </Modal>
     </div>

@@ -13,9 +13,6 @@ import ClearIcon from '@mui/icons-material/Clear';
 import { errorsSelector } from "../../services/redux.reducer";
 import { useAppSelector } from "../../services/store";
 
-
-
-
 type FormData = {
   name?: string;
   description?: string;
@@ -60,7 +57,6 @@ function CreateVenueForm({ onSubmit, initialData = {}, isEditMode = false }: Cre
         ...initialData,
       },
     });
-
    
     useEffect(() => {
       if (isEditMode && initialData !== null && initialData !== undefined) {
@@ -70,8 +66,6 @@ function CreateVenueForm({ onSubmit, initialData = {}, isEditMode = false }: Cre
         }
       } 
     }, [initialData, isEditMode, setValue]);
-
-
    
     const { fields, append, remove } = useFieldArray({
       control,
@@ -87,9 +81,7 @@ function CreateVenueForm({ onSubmit, initialData = {}, isEditMode = false }: Cre
       onSubmit(data);
     };
 
-    const ApiErrors = useAppSelector(errorsSelector);
-   
-   
+    const ApiErrors = useAppSelector(errorsSelector);  
    
     return ( 
         <>
@@ -115,7 +107,7 @@ function CreateVenueForm({ onSubmit, initialData = {}, isEditMode = false }: Cre
                     <Button color="secondary"   type="button" onClick={() => remove(index)}><ClearIcon/> </Button>
                   </Box >
                 ))}
-                <Button variant="outlined" color="primary" type="button" onClick={() => append({ url: "", alt: "" })}>Add Image</Button>
+                <Button variant="contained" color="primary" type="button" onClick={() => append({ url: "", alt: "" })}>Add Image</Button>
 
                 <Controller control={control} name="price" rules={{required: "price is required",min: {value: 1, message: "Price must be at least 1"}}} render={({field:{onChange, value}}) =>
                 <TextField margin="normal" type="number" variant="outlined" label="Price" onChange={onChange} value={value}  helperText={errors.price ? errors.price.message : null} />
@@ -203,8 +195,8 @@ function CreateVenueForm({ onSubmit, initialData = {}, isEditMode = false }: Cre
             </Grid>
             <Grid container direction={"column"} paddingX={5} width={450}>
             <Typography variant="h4">Location</Typography>
-            <Controller control={control} name="location.address" rules={{required: "adress is required"}} render={({field:{onChange, value}}) =>
-                <TextField margin="normal" type="text" variant="outlined" label="adress" onChange={onChange} value={value}  helperText={errors.location?.address ? errors.location?.address.message : null} />
+            <Controller control={control} name="location.address" rules={{required: "address is required"}} render={({field:{onChange, value}}) =>
+                <TextField margin="normal" type="text" variant="outlined" label="address" onChange={onChange} value={value}  helperText={errors.location?.address ? errors.location?.address.message : null} />
                 }/>
             <Controller control={control} name="location.city" rules={{required: "city is required"}} render={({field:{onChange, value}}) =>
                 <TextField margin="normal" type="text" variant="outlined" label="city" onChange={onChange} value={value}  helperText={errors.location?.city ? errors.location?.city.message : null} />

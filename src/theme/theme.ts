@@ -1,12 +1,9 @@
 import { createTheme } from "@mui/material";
 
-
 export const theme = createTheme({
     palette: {
         primary:{
             main: "#FFCC6A",
-
-
         },
         secondary:{
             main: "#343434",
@@ -14,8 +11,7 @@ export const theme = createTheme({
     }, 
 
     typography:{
-        fontFamily: `"Sedan", serif`,
-
+        fontFamily: `"Open Sans", sans-serif`,
     }
 })
 

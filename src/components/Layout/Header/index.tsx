@@ -17,7 +17,6 @@ import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { isManager } from '../../../services/localeStorage/localeStorage';
 
-
 function Header() {
   
   const navigate = useNavigate();
@@ -39,7 +38,7 @@ function Header() {
     navigate('/');
   };  
 
-  const pages = ['home', 'venues'];
+  const pages = ['home'];
   const settings = isLoggedIn 
   ? ['profile', ...(isManager ? ['create venue'] : []), 'logout'] 
   : ['login'];
@@ -79,6 +78,10 @@ function Header() {
               letterSpacing: '.3rem',
               color: 'inherit',
               textDecoration: 'none',
+              '&:hover': {
+                textDecoration: 'none', 
+                color: 'inherit' 
+              },
             }}
           >
             Holidaze
@@ -111,13 +114,23 @@ function Header() {
               onClose={handleCloseNavMenu}
               sx={{
                 display: { xs: 'block', md: 'none' },
+                
               }}
             >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
                 <Link           component={NavLink} 
-            to={page.toLowerCase() === 'home' ? '/' : `/${page.toLowerCase()}`}>
-                  <Typography sx={{color: "black"}}  textAlign="center">{page}</Typography>
+            to={page.toLowerCase() === 'home' ? '/' : `/${page.toLowerCase()}`}
+            sx={{
+              textDecoration: 'none',
+              color: 'inherit',
+              '&:hover': {
+                textDecoration: 'none', // Removes the underline on hover
+                color: 'inherit' // Keeps the color the same on hover
+              },
+            }}
+          >
+                  <Typography sx={{color: "black" }}  textAlign="center">{page}</Typography>
                 </Link>
                 </MenuItem>
               ))}
@@ -138,6 +151,10 @@ function Header() {
               letterSpacing: '.3rem',
               color: 'inherit',
               textDecoration: 'none',
+              '&:hover': {
+                textDecoration: 'none', 
+                color: 'inherit'
+              },
             }}
           >
             Holidaze
@@ -149,7 +166,15 @@ function Header() {
             to={page.toLowerCase() === 'home' ? '/' : `/${page.toLowerCase()}`}
             key={page}
             onClick={handleCloseNavMenu}
-            sx={{ my: 2, color: 'black', display: 'block' }}
+            sx={{
+              my: 2,
+              color: 'black',
+              display: 'block',
+              '&:hover': {
+                backgroundColor: 'transparent', // Removes the background color change on hover
+                color: 'black' // Keeps the color the same on hover
+              },
+            }}
           >
             {page}
               </Button>
@@ -189,7 +214,16 @@ function Header() {
           {setting}
         </Typography>
       ) : (
-        <Link component={NavLink} to={`/${setting.toLowerCase()}`}>
+        <Link component={NavLink} to={`/${setting.toLowerCase()}`}
+        sx={{
+          textDecoration: 'none',
+          color: 'inherit',
+          '&:hover': {
+            textDecoration: 'none', 
+            color: 'inherit' 
+          },
+        }}
+        >
           <Typography sx={{ color: "black" }} textAlign="center">
             {setting}
           </Typography>

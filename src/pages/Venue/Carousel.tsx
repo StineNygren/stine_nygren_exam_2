@@ -21,8 +21,7 @@ interface MediaItem {
       if (index > 0) {
         setIndex(index - 1);
       }
-    }
-  
+    }  
 
     return (
       <Box>
@@ -34,7 +33,6 @@ interface MediaItem {
             height: '400px',
             objectFit: 'cover',
             width: '100%',
-
           }}
         />
         {media.length > 1 && (

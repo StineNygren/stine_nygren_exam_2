@@ -3,17 +3,11 @@ import { Venue } from "../types/types";
 import { token } from "./localeStorage/localeStorage";
 import { ProfileResponse } from "../types/types";
 
-
-
-///  transformResponse: (response: { data: Venue }) => response.data, is roe when the data is an object and not an array "data"
-
-
 export const holidazeApi = createApi({
   reducerPath: "holidazeApi",
   baseQuery: fetchBaseQuery({
     baseUrl: "https://v2.api.noroff.dev",
     prepareHeaders: (headers) => {
-      // const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiUGVyX1RvcmUiLCJlbWFpbCI6InBlcnRvcmVAc3R1ZC5ub3JvZmYubm8iLCJpYXQiOjE3MTI3NTQ2MjB9.zXq6BlDF_9L29j6e4IwLRxilna8JTx37dK8n9laxDPQ"
       headers.set('content-type', 'application/json');
       headers.set('X-Noroff-API-Key', '2903952c-f44b-449f-95e3-8694ba4c93ad');
       
@@ -23,7 +17,6 @@ export const holidazeApi = createApi({
 
       return headers;
     },
-
   }),
 
 
@@ -33,7 +26,7 @@ endpoints: (builder) => ({
       transformResponse: (response: { data: Array<Venue> }) => response.data,
     }),
     searchVenues: builder.query<Array<Venue>, { search: string, page: number }>({
-      query: ({search, page}) => `/holidaze/venues${search}limit=50&page=${page}`,
+      query: ({search, page}) => `/holidaze/venues${search}limit=50&page=${page}&sortOrder=desc&sort=created`,
       transformResponse: (response: { data: Array<Venue> }) => response.data,
     }),
     getVenue: builder.query<Venue, string>({
@@ -98,10 +91,7 @@ endpoints: (builder) => ({
         method: 'DELETE',
       }),
     }),
-
-
   }),
-
 });
 
 export const { 
@@ -117,6 +107,6 @@ export const {
   useEditVenueMutation,
   useCreateBookingMutation,
   useDeleteBookingMutation,
-  
-
 } = holidazeApi;
+
+export type HolidazeApi = typeof holidazeApi;

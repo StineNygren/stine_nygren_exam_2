@@ -7,8 +7,6 @@ import { useRegisterMutation } from "../../services/api.reducer";
 import { useLoginMutation } from "../../services/api.reducer";
 import { saveData } from "./LoginForm";
 
-
-
 type FormData = {
     email: string;
     password: string;

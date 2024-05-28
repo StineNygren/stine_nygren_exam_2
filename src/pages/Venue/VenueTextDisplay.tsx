@@ -12,7 +12,6 @@ interface VenueTextDisplayProps {
 
 function VenueTextDisplay( { data }: VenueTextDisplayProps) {
 
-
     return ( 
         <Box maxWidth={"500px"}>
             <h1>{data.name}</h1>
@@ -23,7 +22,7 @@ function VenueTextDisplay( { data }: VenueTextDisplayProps) {
             {data.meta.parking && <Typography><LocalParkingIcon /> Parking</Typography>}
             {data.meta.breakfast && <Typography><RestaurantIcon /> Breakfast</Typography>}
             {data.meta.pets && <Typography><PetsIcon /> Pet Friendly</Typography>}
-            <Typography>Price: {data.price}$</Typography>
+            
         </Box>
      );
 }

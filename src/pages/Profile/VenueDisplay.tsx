@@ -1,22 +1,15 @@
-import { Box, Grid, Button } from "@mui/material";
+import { Box, Grid, Button, Typography } from "@mui/material";
 import { ProfileResponse } from "../../types/types";
 import VenueCard from "./VenueCard";
 import BookingCard from "./BookingCard";
 import { isManager } from "../../services/localeStorage/localeStorage";
 import { useState } from 'react';
 
-
-
-
-
-
 interface ProfileDisplayProps {
     data: ProfileResponse; 
     refetch: () => void;
   }
 function VenueDisplay({ data, refetch }: ProfileDisplayProps) {
-    // refetch()
-
 
     const [view, setView] = useState('venues');
 
@@ -46,10 +39,10 @@ console.log(venues.length)
         </> 
             ) : (
             <>
-                <Button  variant="outlined" sx={{color: "#343434"}} onClick={() => {setView('venues'); refetch();}}>
+                <Button  variant={view === "venues" ? "contained" : "outlined"} sx={{color: "#343434"}} onClick={() => {setView('venues'); refetch();}}>
                 Show Venues
                 </Button>
-                <Button variant="outlined" sx={{color: "#343434"}} onClick={() => {setView('bookings'); refetch();}}>
+                <Button variant={view === "bookings" ? "contained" : "outlined"} sx={{color: "#343434"}} onClick={() => {setView('bookings'); refetch();}}>
                 Show Bookings
                 </Button>
                 <Grid container spacing={2} justifyContent="center" alignItems="center">
@@ -61,7 +54,7 @@ console.log(venues.length)
           </Grid>
         ))
       ) : (
-        <p>No venues available.</p>
+        <Typography marginTop={5}>No venues available.</Typography>
       )
     ) : (
       bookings.length > 0 ? (
@@ -71,19 +64,15 @@ console.log(venues.length)
           </Grid>
         ))
       ) : (
-        <p>No bookings available.</p>
+        <Typography marginTop={5}>No bookings available.</Typography>
       )
     )}
     </Grid>
             </>
             )}
-
-
-
          </Box>
      );
 }
 
 export default VenueDisplay;
 
-//sims@stud.noroff.no

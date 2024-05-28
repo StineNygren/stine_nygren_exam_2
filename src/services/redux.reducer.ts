@@ -43,10 +43,6 @@ interface Err {
                 state.isLoading = false;
                 state.products = action.payload;
             })
-          //   .addMatcher(holidazeApi.endpoints.createVenue.matchRejected, (state, action) => {
-          //     state.isLoading = false;
-          //     state.errors = action.error.message || 'An unknown error occurred';
-          // })
             .addMatcher(isRejectedWithValue, (state, action: PayloadAction<unknown>) => {
               state.isLoading = false;
               console.log(action.payload);
@@ -54,16 +50,14 @@ interface Err {
                 console.log(action.payload);
                 state.errors = action.payload.data.errors;
             }else {
-                state.errors = [{ code: 'unknown', message: 'An unknown error occurred', path: [] }];
-            
+                state.errors = [{ code: 'unknown', message: 'An unknown error occurred', path: [] }];            
             }
           });
     },
   });
   function isErr(payload: unknown): payload is Err {
     return (payload as Err).data !== undefined && (payload as Err).status !== undefined;
-}
-  
+}  
   export default dataSlice.reducer;
 
   const errors = (state: RootState) => state.data.errors;

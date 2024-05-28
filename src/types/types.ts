@@ -19,6 +19,7 @@ export interface media {
     lat?: number;
     lng?: number;
   }
+
   interface Owner {
     name: string;
     email: string;
@@ -46,9 +47,25 @@ export interface Venue {
     bookings: Booking[];
     _count: Count;
 
-
-
   }
+  // export interface Venue {
+  //   id: string;
+  //   name: string;
+  //   description: string;
+  //   media: media[];
+  //   price: number;
+  //   maxGuests: number;
+  //   rating: number;
+  //   created: string;
+  //   updated: string;
+  //   meta: {
+  //     wifi: boolean;
+  //     parking: boolean;
+  //     breakfast: boolean;
+  //     pets: boolean;
+  //   };
+  //   location: Location;
+  // }
 
   interface Customer {
     name: string;
@@ -66,22 +83,29 @@ export interface Venue {
     created: string;
     updated: string;
     customer: Customer;
+    venue: Venue;
   }
+
+  // export interface Booking {
+  //   id: string;
+  //   dateFrom: string;
+  //   dateTo: string;
+  //   guests: number;
+  //   created: string;
+  //   updated: string;
+  //   venue: Venue;
+  // }
 
 
   // auth/login response
 
-  export interface Image {
-    url: string;
-    alt: string;
-  }
   
   export interface User {
     name: string;
     email: string;
     bio: string | null;
-    avatar: Image;
-    banner: Image;
+    avatar: media;
+    banner: media;
     accessToken: string;
     venueManager: boolean;
   }
@@ -99,49 +123,18 @@ export interface Venue {
   export interface ExtendedUser extends User {
     venueManager: boolean;
     _count: ProfileCount;
-  }
-
-
-  
-  export interface Venue {
-    id: string;
-    name: string;
-    description: string;
-    media: Image[];
-    price: number;
-    maxGuests: number;
-    rating: number;
-    created: string;
-    updated: string;
-    meta: {
-      wifi: boolean;
-      parking: boolean;
-      breakfast: boolean;
-      pets: boolean;
-    };
-    location: Location;
-  }
-  
-  export interface Booking {
-    id: string;
-    dateFrom: string;
-    dateTo: string;
-    guests: number;
-    created: string;
-    updated: string;
-    venue: Venue;
-  }
+  }  
   
   export interface ProfileResponse {
     name: string;
     email: string;
     bio: string | null;
-    avatar: Image;
-    banner: Image;
+    avatar: media;
+    banner: media;
     data: ExtendedUser;
     venues: Venue[];
     bookings: Booking[];
     venueManager: boolean;
     meta?: Record<string, unknown>; 
-
   }
+  

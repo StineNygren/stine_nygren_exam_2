@@ -3,15 +3,9 @@ import { Box, Card, Typography } from "@mui/material";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { NavLink } from "react-router-dom";
 
-
-
-
-
 interface VenueCardProps {
     venue: Venue;
   }
-  
-
 
 function VenueCards({ venue }: VenueCardProps) {
 
@@ -38,14 +32,16 @@ function VenueCards({ venue }: VenueCardProps) {
                
                onError={handleError}
           />
-              <Typography sx={{   
+              <Typography 
+                className="venue-name"
+              sx={{   
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
                 display: '-webkit-box',
                 WebkitLineClamp: '1',
                 WebkitBoxOrient: 'vertical'
                 }}    
-                marginX={3} marginTop={2} variant="h4">{venue.name}</Typography>
+                marginX={3} marginY={2} fontSize={"large"} >{venue.name}</Typography>
               <Box marginX={3} display={"flex"} justifyContent={"space-between"}>
               <Typography><LocationOnIcon fontSize="small" /> {venue.location.city || "Unknown"}</Typography>
               <Typography>{venue.price}$</Typography>
