@@ -21,7 +21,7 @@ function Login() {
             <Box display="flex" flexDirection="column" alignItems="center"  >
             <h1>{isLoginForm ? 'Login' : 'Register'}</h1>
             {isLoginForm ? <LoginForm /> : <RegisterForm />}
-            <p>Or</p>
+            <p>or</p>
             <Button onClick={() => setIsLoginForm(!isLoginForm)}>
                 {isLoginForm ? 'Register' : 'Login'}
             </Button>
