@@ -48,24 +48,6 @@ export interface Venue {
     _count: Count;
 
   }
-  // export interface Venue {
-  //   id: string;
-  //   name: string;
-  //   description: string;
-  //   media: media[];
-  //   price: number;
-  //   maxGuests: number;
-  //   rating: number;
-  //   created: string;
-  //   updated: string;
-  //   meta: {
-  //     wifi: boolean;
-  //     parking: boolean;
-  //     breakfast: boolean;
-  //     pets: boolean;
-  //   };
-  //   location: Location;
-  // }
 
   interface Customer {
     name: string;
@@ -85,20 +67,6 @@ export interface Venue {
     customer: Customer;
     venue: Venue;
   }
-
-  // export interface Booking {
-  //   id: string;
-  //   dateFrom: string;
-  //   dateTo: string;
-  //   guests: number;
-  //   created: string;
-  //   updated: string;
-  //   venue: Venue;
-  // }
-
-
-  // auth/login response
-
   
   export interface User {
     name: string;

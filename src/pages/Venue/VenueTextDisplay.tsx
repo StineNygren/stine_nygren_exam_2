@@ -13,7 +13,7 @@ interface VenueTextDisplayProps {
 function VenueTextDisplay( { data }: VenueTextDisplayProps) {
 
     return ( 
-        <Box maxWidth={"500px"}>
+        <Box maxWidth={"500px"} overflow={"hidden"}>
             <h1>{data.name}</h1>
             <Typography><LocationOnIcon /> {data.location.address}</Typography>
             <Rating name="read-only" value={data.rating} readOnly />

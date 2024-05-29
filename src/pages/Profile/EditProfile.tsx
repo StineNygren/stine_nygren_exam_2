@@ -42,8 +42,6 @@ function EditProfile({profile, refetch} : EditProfileProps){
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    console.log(profile)
-
     const defaultFormData: FormData = {
         bio: profile.bio || "",
         avatar: profile.avatar || { url: "", alt: "" },
@@ -65,7 +63,7 @@ function EditProfile({profile, refetch} : EditProfileProps){
             console.log("Profile edited")
             handleClose()
             refetch();
-            handleClose();
+
         } catch (error) {
             console.error("Failed to edit the profile: ", error);
         }

@@ -15,9 +15,14 @@ import { Link } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { isManager } from '../../../services/localeStorage/localeStorage';
+import { useGetProfileQuery } from "../../../services/api.reducer";
+import { user } from '../../../services/localeStorage/localeStorage';
 
 function Header() {
+
+  const { data } = useGetProfileQuery(user);
+  const venueManager = data?.venueManager;
+  console.log(venueManager)
   
   const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
@@ -40,7 +45,7 @@ function Header() {
 
   const pages = ['home'];
   const settings = isLoggedIn 
-  ? ['profile', ...(isManager ? ['create venue'] : []), 'logout'] 
+  ? ['profile', ...(venueManager ? ['create venue'] : []), 'logout'] 
   : ['login'];
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -125,8 +130,8 @@ function Header() {
               textDecoration: 'none',
               color: 'inherit',
               '&:hover': {
-                textDecoration: 'none', // Removes the underline on hover
-                color: 'inherit' // Keeps the color the same on hover
+                textDecoration: 'none', 
+                color: 'inherit' 
               },
             }}
           >
@@ -171,8 +176,8 @@ function Header() {
               color: 'black',
               display: 'block',
               '&:hover': {
-                backgroundColor: 'transparent', // Removes the background color change on hover
-                color: 'black' // Keeps the color the same on hover
+                backgroundColor: 'transparent', 
+                color: 'black' 
               },
             }}
           >
