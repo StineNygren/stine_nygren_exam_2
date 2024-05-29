@@ -1,28 +1,33 @@
 import { useSearchVenuesQuery } from "../../services/api.reducer";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import VenueCards from "../../components/VenueCards";
 import { Grid, Button, TextField, Box, Typography } from "@mui/material";
 import beach from '../../assets/beach.png';
 import { useScreenTheme } from "../../theme/screenTheme";
+import { useSearchParams } from 'react-router-dom'; 
 
 function Search() {
     const { isSmallScreen } = useScreenTheme();
-    const [search, setSearch] = useState("");
-    const [param, setParam] = useState("?");
-    const [page, setPage] = useState(1);    
-   
-    const { data = [], error, isLoading } = useSearchVenuesQuery({ search: param, page: page });
+    const [searchParams, setSearchParams] = useSearchParams();
+    const [search, setSearch] = useState(searchParams.get('q') || "");
+    const [page, setPage] = useState(Number(searchParams.get('page')) || 1);
+
+    const searchQuery = search ? `/search?q=${search}&` : '?';
+    const { data = [], error, isLoading } = useSearchVenuesQuery({ search: searchQuery, page: page });
+
+    useEffect(() => {
+        setSearchParams(new URLSearchParams({ q: search, page: page.toString() }));
+    }, [search, page]);
+
     if (isLoading) return <p>Loading...</p>;
     if (error) return <p>Error!</p>;
     if (!data) return <div>No data</div>;
 
     const handleNext = () => {
         setPage(prevPage => prevPage + 1);
-        console.log(page);
     }
     const handlePrevius = () => { 
         setPage(prevPage => prevPage - 1);
-        console.log(page);
     }
 
     function handleSearch(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
@@ -32,12 +37,10 @@ function Search() {
     
         if (currentInputValue === ""){
             setSearch("");
-            setParam("?");
         } else {
             setSearch(currentInputValue);
-            setParam(`/search?q=${currentInputValue}&`);
         }
-    }    
+    }  
 
     return ( 
     <Box display={"flex"} flexDirection={"column"} alignItems={"center"} marginBottom={5}> 
@@ -49,7 +52,7 @@ function Search() {
             backgroundSize: 'cover',
         }}>   
         <Box sx={{backgroundColor: "white"}} paddingY={2} paddingX={5} minWidth={isSmallScreen ? "100%" : "500px"}>
-        <Typography fontSize={"large"}>Find your next new adventure!</Typography>
+        <Typography m={2} fontSize={"large"}>Find your next new adventure!</Typography>
         <TextField id="search_input" sx={{width: "100%"}} label="Search.." type="text" value={search} onChange={(e) => handleSearch(e)} />
         </Box> 
         </Box> 
@@ -74,3 +77,4 @@ function Search() {
 }
 
 export default Search;
+

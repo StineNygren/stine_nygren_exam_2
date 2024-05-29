@@ -65,6 +65,9 @@ const handleClose = () => {
                     width={"100%"}
                     height={"200px"}
                     onError={handleError}
+                    sx={{
+                        objectFit: 'cover',
+                      }}
                 />
                         <Typography sx={{   
                 overflow: 'hidden',

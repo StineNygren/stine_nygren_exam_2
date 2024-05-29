@@ -29,8 +29,10 @@ function VenueCards({ venue }: VenueCardProps) {
                alt="venue media"
                width={"100%"}
                height={"200px"}
-               
                onError={handleError}
+               sx={{
+                objectFit: 'cover',
+              }}
           />
               <Typography 
                 className="venue-name"

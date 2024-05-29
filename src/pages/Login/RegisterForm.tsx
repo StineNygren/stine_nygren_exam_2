@@ -65,7 +65,7 @@ function RegisterForm() {
                   mb: 2,
                 }}  type="text" variant="outlined" label="Name" onChange={onChange} value={value}  helperText={errors.name ? errors.name.message : null} />
                 }/>
-                <Controller control={control} name="email" rules={{required: "email is required",pattern: { value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i, message: "invalid email address"
+                <Controller control={control} name="email" rules={{required: "email is required",pattern: { value: /^[A-Z0-9._%+-]+@stud\.noroff\.no$/i, message: "invalid email address"
                 }}} render={({field:{onChange, value}}) =>
                 <TextField sx={{
                   // Root class for the input field

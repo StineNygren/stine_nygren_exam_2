@@ -33,7 +33,7 @@ console.log(venues.length)
             </Grid>
           ))
         ) : (
-          <p>No bookings available.</p>
+          <Typography marginTop={5}>No bookings available.</Typography>
         )}
       </Grid>
         </> 
