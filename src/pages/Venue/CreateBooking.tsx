@@ -22,7 +22,6 @@ interface CreateBookingProps {
 }
 
 function CreateBooking( { bookings, id, owner, price, maxGuests }: CreateBookingProps) {
-    console.log(owner)
 
     const [createBooking] = useCreateBookingMutation();
     const ApiErrors = useAppSelector(errorsSelector);

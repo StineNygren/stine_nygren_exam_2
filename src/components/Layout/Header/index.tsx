@@ -22,7 +22,6 @@ function Header() {
 
   const { data } = useGetProfileQuery(user);
   const venueManager = data?.venueManager;
-  console.log(venueManager)
   
   const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);

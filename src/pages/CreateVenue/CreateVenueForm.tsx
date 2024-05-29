@@ -71,7 +71,6 @@ function CreateVenueForm({ onSubmit, initialData = {}, isEditMode = false }: Cre
       control,
       name: "media"
     });
-    console.log(fields)
 
     const onSubmitWithConversion = (data: FormData) => {
       console.log(data)

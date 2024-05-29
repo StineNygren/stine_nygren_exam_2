@@ -26,7 +26,7 @@ const onSubmit = async (data: Partial<Venue>) => {
     }
 
     return ( 
-        <Box display={"flex"} flexDirection={"column"} alignItems={"center"}>
+        <Box m={5} display={"flex"} flexDirection={"column"} alignItems={"center"}>
             <h1>Create Venue</h1>
             <CreateVenueForm onSubmit={onSubmit}/>
         </Box >

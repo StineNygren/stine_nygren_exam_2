@@ -6,15 +6,15 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import InfoModal from "./InfoModal";
 import EditVenue from "./EditVenue";
 import { NavLink } from "react-router-dom";
-import { isManager } from "../../services/localeStorage/localeStorage";
 import { useState } from "react";
 
 interface VenueCardProps {
     venue: Venue;
     refetch: () => void;
+    venueManager: boolean;
   }
   
-  function VenueCard({ venue, refetch }: VenueCardProps) {
+  function VenueCard({ venue, refetch, venueManager }: VenueCardProps) {
 
     const [open, setOpen] = useState(false);
 
@@ -79,8 +79,8 @@ const handleError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
             </NavLink>
             <Box display={"flex"} justifyContent={"flex-end"}>
             <InfoModal venueId={venue.id}/>
-            <EditVenue venueId={venue.id} refetch={refetch}/>
-            <Button disabled={!isManager} onClick={handleClickOpen} variant="text" color="secondary"><DeleteIcon /></Button>
+            <EditVenue venueId={venue.id} venueManager={venueManager} refetch={refetch}/>
+            <Button disabled={!venueManager} onClick={handleClickOpen} variant="text" color="secondary"><DeleteIcon /></Button>
             <Dialog
               open={open}
               onClose={handleClose}

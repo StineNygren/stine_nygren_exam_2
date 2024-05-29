@@ -15,8 +15,7 @@ function VenueDisplay({ data, refetch }: ProfileDisplayProps) {
 
     const venues = data.venues
     const bookings = data.bookings
-
-console.log(venues.length)
+    const venueManager = data.venueManager
 
     return ( 
         <Box p={5}>
@@ -50,7 +49,7 @@ console.log(venues.length)
       venues.length > 0 ? (
         venues.map((venue) => (
           <Grid p={3} key={venue.id}>
-            <VenueCard venue={venue} refetch={refetch}/>
+            <VenueCard venueManager={venueManager} venue={venue} refetch={refetch}/>
           </Grid>
         ))
       ) : (

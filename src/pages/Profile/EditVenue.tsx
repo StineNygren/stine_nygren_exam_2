@@ -6,7 +6,7 @@ import { useEditVenueMutation } from "../../services/api.reducer";
 import CreateVenueForm from "../CreateVenue/CreateVenueForm";
 import EditIcon from '@mui/icons-material/Edit';
 import { useGetVenueQuery } from '../../services/api.reducer';
-import { isManager } from '../../services/localeStorage/localeStorage';
+
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -23,9 +23,10 @@ const style = {
 interface InfoModalProps {
   venueId: string;
   refetch: () => void;
+  venueManager: boolean;
 }
 
-export default function EditVenue({ venueId, refetch }: InfoModalProps) {
+export default function EditVenue({ venueId, venueManager, refetch }: InfoModalProps) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {  setOpen(true); };
   const handleClose = () => setOpen(false);
@@ -37,7 +38,7 @@ export default function EditVenue({ venueId, refetch }: InfoModalProps) {
   return (
     <div>
 
-      <Button variant="text" color="secondary"  disabled={!isManager} onClick={handleOpen}><EditIcon/></Button>
+      <Button variant="text" color="secondary"  disabled={!venueManager} onClick={handleOpen}><EditIcon/></Button>
       <Modal
         open={open}
         onClose={handleClose}
